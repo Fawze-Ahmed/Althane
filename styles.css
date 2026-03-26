@@ -22,7 +22,7 @@ section,.section { padding: 60px 0; scroll-margin-top: 90px; }
 .site-header { background: rgba(0, 0, 0, 0); padding: 20px 0; transition: all 0.5s; z-index: 997; }
 .site-header.scrolled { background: rgba(21, 34, 43, 0.88); box-shadow: 0 0 18px rgba(0, 0, 0, 0.1); }
 .logo { line-height: 1; direction: ltr; gap: 10px; }
-.header-logo-image { width: 64px; height: 64px; object-fit: contain; padding: 0; background: transparent; border-radius: 0; box-shadow: none; mix-blend-mode: multiply; }
+.header-logo-image { width: 84px; height: 84px; object-fit: contain; padding: 0; background: transparent; border-radius: 0; box-shadow: none; mix-blend-mode: multiply; }
 .site-name { font-size: 28px; font-weight: 700; color: #fff; white-space: nowrap; }
 .mobile-name { display: none; }
 
@@ -137,7 +137,7 @@ section,.section { padding: 60px 0; scroll-margin-top: 90px; }
   .desktop-name { display: none; }
   .mobile-name { display: inline; }
   .site-name { font-size: 17px; }
-  .header-logo-image { width: 48px; height: 48px; }
+  .header-logo-image { width: 62px; height: 62px; }
   .hero-logo-image { width: min(320px, 86vw); padding: 0; border-radius: 0; }
   .hero h2 { font-size: 34px; }
   .hero p { font-size: 18px; }
