@@ -811,12 +811,34 @@ section {
   pointer-events: none;
 }
 
-body .goog-te-banner-frame.skiptranslate {
+body .goog-te-banner-frame.skiptranslate,
+body .skiptranslate,
+body iframe.skiptranslate,
+body .goog-te-balloon-frame,
+body .goog-tooltip,
+body .goog-tooltip:hover,
+body .VIpgJd-ZVi9od-ORHb-OEVmcd,
+body .VIpgJd-ZVi9od-l4eHX-hSRGPd,
+body .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+body .VIpgJd-ZVi9od-ORHb,
+body [class*="VIpgJd-ZVi9od"] {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  max-height: 0 !important;
+  pointer-events: none !important;
 }
 
-body {
+body,
+html {
   top: 0 !important;
+  margin-top: 0 !important;
+  scroll-padding-top: 0 !important;
+}
+
+body .goog-text-highlight {
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .reveal {

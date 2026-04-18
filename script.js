@@ -72,10 +72,57 @@ function applyGoogleTranslate(lang) {
   return true;
 }
 
+function hideGoogleTranslateArtifacts() {
+  document.body.style.top = "0px";
+  document.documentElement.style.top = "0px";
+  document.body.style.marginTop = "0px";
+  document.documentElement.style.marginTop = "0px";
+
+  const selectors = [
+    ".goog-te-banner-frame",
+    ".skiptranslate",
+    "iframe.skiptranslate",
+    ".goog-te-balloon-frame",
+    ".goog-tooltip",
+    ".VIpgJd-ZVi9od-ORHb-OEVmcd",
+    ".VIpgJd-ZVi9od-l4eHX-hSRGPd",
+    ".VIpgJd-ZVi9od-aZ2wEe-wOHMyf",
+    ".VIpgJd-ZVi9od-ORHb",
+    "[class*='VIpgJd-ZVi9od']",
+  ];
+
+  selectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((node) => {
+      node.style.display = "none";
+      node.style.visibility = "hidden";
+      node.style.opacity = "0";
+      node.style.maxHeight = "0";
+      node.setAttribute("aria-hidden", "true");
+    });
+  });
+}
+
+function initTranslateUiCleanup() {
+  hideGoogleTranslateArtifacts();
+
+  const observer = new MutationObserver(() => {
+    hideGoogleTranslateArtifacts();
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["style", "class"],
+  });
+}
+
 function setLanguage(lang) {
   syncLanguageState(lang);
+  document.body.classList.toggle("translated-ltr", lang === "en");
 
   if (lang === "ar") {
+    hideGoogleTranslateArtifacts();
     window.location.reload();
     return;
   }
@@ -86,6 +133,7 @@ function setLanguage(lang) {
   }
 
   window.setTimeout(() => {
+    hideGoogleTranslateArtifacts();
     if (!document.body.classList.contains("translated-ltr")) {
       window.location.reload();
     }
@@ -105,6 +153,7 @@ function initLanguageSwitcher() {
   window.setTimeout(() => {
     if (savedLang === "en" && !document.body.classList.contains("translated-ltr")) {
       applyGoogleTranslate(savedLang);
+      hideGoogleTranslateArtifacts();
     }
   }, 1000);
 }
@@ -133,6 +182,7 @@ window.addEventListener("load", () => {
   setActiveNav();
   initLanguageSwitcher();
   initBlogFilters();
+  initTranslateUiCleanup();
 });
 
 mobileNavToggle?.addEventListener("click", () => {
@@ -194,6 +244,7 @@ window.googleTranslateElementInit = function googleTranslateElementInit() {
     window.setTimeout(() => {
       applyGoogleTranslate("en");
       document.body.classList.add("translated-ltr");
+      hideGoogleTranslateArtifacts();
     }, 300);
   }
 };
