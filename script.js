@@ -9,6 +9,35 @@ const whatsappPanel = document.getElementById("whatsapp-panel");
 const langButtons = document.querySelectorAll(".lang-btn");
 const filterButtons = document.querySelectorAll(".filter-chip");
 const articleCards = document.querySelectorAll(".article-card");
+const GOOGLE_TRANSLATE_COOKIE = "googtrans";
+
+function getSavedLanguage() {
+  return localStorage.getItem("site-language") || "ar";
+}
+
+function getTranslateCookieValue() {
+  const match = document.cookie.match(/(?:^|; )googtrans=([^;]+)/);
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
+function setTranslateCookie(lang) {
+  const cookieValue = lang === "en" ? "/ar/en" : "/ar/ar";
+  const expires = "Fri, 31 Dec 9999 23:59:59 GMT";
+  const hostname = window.location.hostname;
+
+  document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${cookieValue}; expires=${expires}; path=/`;
+
+  if (hostname && hostname.includes(".")) {
+    document.cookie = `${GOOGLE_TRANSLATE_COOKIE}=${cookieValue}; expires=${expires}; path=/; domain=.${hostname}`;
+  }
+}
+
+function syncLanguageState(lang) {
+  localStorage.setItem("site-language", lang);
+  document.documentElement.lang = lang;
+  updateLanguageButtons(lang);
+  setTranslateCookie(lang);
+}
 
 function updateScrolledState() {
   if (window.scrollY > 60) {
@@ -44,24 +73,28 @@ function applyGoogleTranslate(lang) {
 }
 
 function setLanguage(lang) {
-  localStorage.setItem("site-language", lang);
-  document.documentElement.lang = lang;
-  updateLanguageButtons(lang);
+  syncLanguageState(lang);
+
+  if (lang === "ar") {
+    window.location.reload();
+    return;
+  }
 
   if (!applyGoogleTranslate(lang)) {
-    let attempts = 0;
-    const interval = window.setInterval(() => {
-      attempts += 1;
-      if (applyGoogleTranslate(lang) || attempts > 20) {
-        window.clearInterval(interval);
-      }
-    }, 500);
+    window.location.reload();
+    return;
   }
+
+  window.setTimeout(() => {
+    if (!document.body.classList.contains("translated-ltr")) {
+      window.location.reload();
+    }
+  }, 500);
 }
 
 function initLanguageSwitcher() {
-  const savedLang = localStorage.getItem("site-language") || "ar";
-  updateLanguageButtons(savedLang);
+  const savedLang = getSavedLanguage();
+  syncLanguageState(savedLang);
 
   langButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -69,7 +102,11 @@ function initLanguageSwitcher() {
     });
   });
 
-  window.setTimeout(() => setLanguage(savedLang), 1000);
+  window.setTimeout(() => {
+    if (savedLang === "en" && !document.body.classList.contains("translated-ltr")) {
+      applyGoogleTranslate(savedLang);
+    }
+  }, 1000);
 }
 
 function initBlogFilters() {
@@ -151,4 +188,12 @@ window.googleTranslateElementInit = function googleTranslateElementInit() {
     },
     "google_translate_element",
   );
+
+  const savedLang = getSavedLanguage();
+  if (savedLang === "en") {
+    window.setTimeout(() => {
+      applyGoogleTranslate("en");
+      document.body.classList.add("translated-ltr");
+    }, 300);
+  }
 };

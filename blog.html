@@ -23,6 +23,17 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        const lang = localStorage.getItem("site-language") || "ar";
+        const value = lang === "en" ? "/ar/en" : "/ar/ar";
+        document.documentElement.lang = lang;
+        document.cookie = "googtrans=" + value + "; path=/";
+        if (window.location.hostname && window.location.hostname.includes(".")) {
+          document.cookie = "googtrans=" + value + "; path=/; domain=." + window.location.hostname;
+        }
+      })();
+    </script>
   </head>
   <body data-page="blog">
     <header id="header" class="site-header fixed-top">
@@ -58,7 +69,7 @@
       <section class="page-hero section dark-background">
         <div class="container position-relative reveal">
           <span class="hero-badge">المقالات والمنشورات</span>
-          <h1>محتوى يبرز خبرة BLINK في التقنية، الأمن، التسويق، الأتمتة، والذكاء الاصطناعي.</h1>
+          <h1>مقالات ومنشورات مهنية تساعد العملاء على فهم الفرص الرقمية واتخاذ قرارات أوضح.</h1>
           <p>
             أنشأنا هذه الصفحة كمكتبة معرفية خفيفة وسريعة القراءة تضم منشورات ومقالات عملية
             تساعد العميل على فهم القيمة التي نقدمها في كل خدمة.
