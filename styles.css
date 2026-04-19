@@ -1821,7 +1821,7 @@ section {
 .sponsor-marquee-inner {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 0;
   width: max-content;
   animation: sponsorMarqueeLoop 58s linear infinite;
   will-change: transform;
@@ -1831,7 +1831,9 @@ section {
   display: flex;
   align-items: center;
   gap: 26px;
+  flex: 0 0 auto;
   width: max-content;
+  padding-inline-end: 26px;
 }
 
 .sponsor-marquee:hover .sponsor-marquee-inner {
@@ -2235,6 +2237,22 @@ section {
     padding-top: 14px;
   }
 
+  .site-header {
+    padding: 12px 0;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .cta-btn {
+    display: none;
+  }
+
+  .language-switch {
+    padding: 3px;
+  }
+
   .logo-band-inner,
   .integration-strip {
     padding: 20px;
@@ -2327,6 +2345,10 @@ section {
     font-size: 20px;
   }
 
+  .site-slogan {
+    display: none;
+  }
+
   .navmenu ul {
     top: 74px;
     right: 12px;
@@ -2338,6 +2360,18 @@ section {
   .navmenu a {
     font-size: 16px;
     padding: 12px 14px;
+  }
+
+  .mobile-nav-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 22px;
+  }
+
+  .hero {
+    padding-top: 122px;
+    padding-bottom: 44px;
   }
 
   .logo-pill,
@@ -2563,11 +2597,25 @@ section {
   }
 
   to {
-    transform: translateX(calc(-50% - 13px));
+    transform: translateX(-50%);
   }
 }
 
 @media (max-width: 1199px) {
+  .mobile-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: #f3f7fb;
+    color: var(--heading-color);
+    border: 1px solid rgba(17, 40, 75, 0.08);
+    font-size: 24px;
+    flex: 0 0 auto;
+  }
+
   .navmenu ul {
     gap: 12px;
     padding: 18px;
@@ -2608,6 +2656,10 @@ section {
     gap: 18px;
   }
 
+  .sponsor-track {
+    padding-inline-end: 18px;
+  }
+
   .sponsor-marquee {
     padding: 8px 0;
   }
@@ -2616,6 +2668,22 @@ section {
     min-width: 172px;
     min-height: 78px;
     border-radius: 20px;
+    padding: 14px 16px;
+  }
+
+  .sponsor-mark {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+    font-size: 24px;
+  }
+
+  .sponsor-mark i {
+    font-size: 24px;
+  }
+
+  .sponsor-card strong {
+    font-size: 17px;
   }
 
   .social-floating {
