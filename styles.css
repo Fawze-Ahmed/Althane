@@ -89,8 +89,8 @@ section {
 }
 
 .header-logo-image {
-  width: 82px;
-  height: 82px;
+  width: 92px;
+  height: 92px;
   object-fit: contain;
 }
 
@@ -362,7 +362,7 @@ section {
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 24px;
   margin-top: 28px;
 }
 
@@ -1193,6 +1193,42 @@ body .goog-text-highlight {
   transform: none;
 }
 
+.impact-grid .impact-item {
+  opacity: 0;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.impact-grid .impact-item:nth-child(odd) {
+  transform: translate3d(54px, 20px, 0) scale(0.96);
+}
+
+.impact-grid .impact-item:nth-child(even) {
+  transform: translate3d(-54px, 20px, 0) scale(0.96);
+}
+
+.impact-grid .impact-item.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.impact-grid .impact-item:nth-child(1) {
+  transition-delay: 0.04s;
+}
+
+.impact-grid .impact-item:nth-child(2) {
+  transition-delay: 0.12s;
+}
+
+.impact-grid .impact-item:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.impact-grid .impact-item:nth-child(4) {
+  transition-delay: 0.28s;
+}
+
 @media (max-width: 1199px) {
   .mobile-nav-toggle {
     display: block;
@@ -1276,8 +1312,8 @@ body .goog-text-highlight {
   }
 
   .header-logo-image {
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
   }
 
   .hero-copy,
@@ -2271,7 +2307,7 @@ section {
 
   .hero-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 18px;
   }
 
   .service-brief-card img,
@@ -2283,6 +2319,14 @@ section {
   .logo-band-track,
   .integration-tags {
     gap: 10px;
+  }
+
+  .impact-grid .impact-item:nth-child(odd) {
+    transform: translate3d(28px, 14px, 0) scale(0.98);
+  }
+
+  .impact-grid .impact-item:nth-child(even) {
+    transform: translate3d(-28px, 14px, 0) scale(0.98);
   }
 }
 
@@ -2386,6 +2430,7 @@ section {
 
   .hero-stats {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .stat-box {
@@ -2393,8 +2438,8 @@ section {
   }
 
   .header-logo-image {
-    width: 62px;
-    height: 62px;
+    width: 68px;
+    height: 68px;
   }
 
   .site-name {
@@ -2471,6 +2516,11 @@ section {
   .article-modal p {
     font-size: 16px;
     line-height: 1.9;
+  }
+
+  .impact-grid .impact-item:nth-child(odd),
+  .impact-grid .impact-item:nth-child(even) {
+    transform: translate3d(0, 18px, 0) scale(0.98);
   }
 }
 
