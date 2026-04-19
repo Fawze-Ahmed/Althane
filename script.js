@@ -393,19 +393,12 @@ function initSponsorMarquee() {
   let paused = false;
   let trackWidth = tracks[0].getBoundingClientRect().width;
 
-  const getGap = () => {
-    const styles = window.getComputedStyle(sponsorMarqueeInner);
-    return Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
-  };
-
-  let trackGap = getGap();
-
   const updateSizes = () => {
     trackWidth = tracks[0].getBoundingClientRect().width;
-    trackGap = getGap();
-    if (offset >= trackWidth + trackGap) {
+    if (offset >= trackWidth) {
       offset = 0;
     }
+    sponsorMarqueeInner.style.transform = `translate3d(-${offset}px, 0, 0)`;
   };
 
   const animate = (timestamp) => {
@@ -414,9 +407,9 @@ function initSponsorMarquee() {
     lastTime = timestamp;
 
     if (!paused) {
-      offset += delta * 0.045;
-      if (offset >= trackWidth + trackGap) {
-        offset = 0;
+      offset += delta * 0.04;
+      if (offset >= trackWidth) {
+        offset -= trackWidth;
       }
       sponsorMarqueeInner.style.transform = `translate3d(-${offset}px, 0, 0)`;
     }
