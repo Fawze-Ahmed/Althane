@@ -9,15 +9,23 @@ const whatsappPanel = document.getElementById("whatsapp-panel");
 const langButtons = document.querySelectorAll(".lang-btn");
 const filterButtons = document.querySelectorAll(".filter-chip");
 const articleCards = document.querySelectorAll(".article-card");
+const articleModal = document.getElementById("article-modal");
+const articleModalTag = document.getElementById("article-modal-tag");
+const articleModalTitle = document.getElementById("article-modal-title");
+const articleModalBody = document.getElementById("article-modal-body");
+const articleModalClose = document.getElementById("article-modal-close");
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
+const socialLinks = [
+  { icon: "bi-instagram", label: "Instagram", href: "#" },
+  { icon: "bi-linkedin", label: "LinkedIn", href: "#" },
+  { icon: "bi-facebook", label: "Facebook", href: "#" },
+  { icon: "bi-twitter-x", label: "X", href: "#" },
+  { icon: "bi-tiktok", label: "TikTok", href: "#" },
+  { icon: "bi-envelope", label: "Email", href: "mailto:blinkagency4u@gmail.com" },
+];
 
 function getSavedLanguage() {
   return localStorage.getItem("site-language") || "ar";
-}
-
-function getTranslateCookieValue() {
-  const match = document.cookie.match(/(?:^|; )googtrans=([^;]+)/);
-  return match ? decodeURIComponent(match[1]) : "";
 }
 
 function setTranslateCookie(lang) {
@@ -35,6 +43,7 @@ function setTranslateCookie(lang) {
 function syncLanguageState(lang) {
   localStorage.setItem("site-language", lang);
   document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
   updateLanguageButtons(lang);
   setTranslateCookie(lang);
 }
@@ -176,6 +185,151 @@ function initBlogFilters() {
   });
 }
 
+function initContactLinkDirection() {
+  document.querySelectorAll("a[href^='tel:'], a[href^='mailto:'], a[href*='wa.me']").forEach((link) => {
+    link.setAttribute("dir", "ltr");
+    link.style.direction = "ltr";
+    link.style.unicodeBidi = "isolate";
+  });
+}
+
+function initArticleModal() {
+  if (!articleCards.length || !articleModal || !articleModalTitle || !articleModalBody || !articleModalTag) return;
+
+  const openModal = (card) => {
+    articleModalTag.textContent = card.querySelector(".article-tag")?.textContent?.trim() || "";
+    articleModalTitle.textContent = card.querySelector("h3")?.textContent?.trim() || "";
+    articleModalBody.textContent = card.querySelector("p")?.textContent?.trim() || "";
+    articleModal.classList.add("open");
+    articleModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  };
+
+  const closeModal = () => {
+    articleModal.classList.remove("open");
+    articleModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+
+  articleCards.forEach((card) => {
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-haspopup", "dialog");
+
+    card.addEventListener("click", () => {
+      openModal(card);
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openModal(card);
+      }
+    });
+  });
+
+  articleModalClose?.addEventListener("click", closeModal);
+
+  articleModal.addEventListener("click", (event) => {
+    if (event.target === articleModal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && articleModal.classList.contains("open")) {
+      closeModal();
+    }
+  });
+}
+
+function initSocialHub() {
+  if (!document.body) return;
+
+  const hub = document.createElement("div");
+  hub.className = "social-floating";
+  hub.innerHTML = `
+    <button id="social-toggle" class="social-toggle" type="button" aria-label="Social links">
+      <i class="bi bi-share-fill"></i>
+    </button>
+    <div id="social-panel" class="social-panel">
+      <span>روابط التواصل</span>
+      <div class="social-panel-grid">
+        ${socialLinks
+          .map(
+            (item) =>
+              `<a href="${item.href}" aria-label="${item.label}"${item.href.startsWith("mailto:") ? "" : ' target="_blank" rel="noopener"'}><i class="bi ${item.icon}"></i></a>`,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(hub);
+
+  const socialToggle = hub.querySelector("#social-toggle");
+  const socialPanel = hub.querySelector("#social-panel");
+
+  socialToggle?.addEventListener("click", () => {
+    socialPanel?.classList.toggle("open");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!socialPanel || !socialToggle) return;
+    if (socialPanel.contains(event.target) || socialToggle.contains(event.target)) return;
+    socialPanel.classList.remove("open");
+  });
+}
+
+function initPointerEffects() {
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+  let rafId = null;
+
+  document.addEventListener("mousemove", (event) => {
+    if (rafId) return;
+
+    rafId = window.requestAnimationFrame(() => {
+      document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
+      document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
+      rafId = null;
+    });
+  });
+}
+
+function initMagneticButtons() {
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+  document.querySelectorAll(".btn-main, .btn-outline-light, .btn-outline-dark, .cta-btn, .social-toggle, .whatsapp-toggle").forEach((button) => {
+    button.addEventListener("mousemove", (event) => {
+      const rect = button.getBoundingClientRect();
+      const x = event.clientX - rect.left - rect.width / 2;
+      const y = event.clientY - rect.top - rect.height / 2;
+      button.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
+    });
+
+    button.addEventListener("mouseleave", () => {
+      button.style.transform = "";
+    });
+  });
+}
+
+function initHeroParallax() {
+  const heroMedia = document.querySelector(".hero-media img");
+  if (!heroMedia || window.matchMedia("(max-width: 991px), (pointer: coarse)").matches) return;
+
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const offset = Math.min(window.scrollY * 0.08, 36);
+      heroMedia.style.transform = `translateY(${offset}px) scale(1.04)`;
+      ticking = false;
+    });
+  });
+}
+
 window.addEventListener("scroll", updateScrolledState);
 window.addEventListener("load", () => {
   updateScrolledState();
@@ -183,6 +337,12 @@ window.addEventListener("load", () => {
   initLanguageSwitcher();
   initBlogFilters();
   initTranslateUiCleanup();
+  initContactLinkDirection();
+  initArticleModal();
+  initSocialHub();
+  initPointerEffects();
+  initMagneticButtons();
+  initHeroParallax();
 });
 
 mobileNavToggle?.addEventListener("click", () => {
@@ -226,6 +386,10 @@ if ("IntersectionObserver" in window) {
 } else {
   document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
 }
+
+document.querySelectorAll(".service-brief-card, .article-card, .detail-card, .value-card").forEach((card, index) => {
+  card.style.transitionDelay = `${Math.min(index * 40, 220)}ms`;
+});
 
 window.googleTranslateElementInit = function googleTranslateElementInit() {
   if (!window.google || !google.translate) return;
