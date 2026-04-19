@@ -14,6 +14,9 @@ const articleModalTag = document.getElementById("article-modal-tag");
 const articleModalTitle = document.getElementById("article-modal-title");
 const articleModalBody = document.getElementById("article-modal-body");
 const articleModalClose = document.getElementById("article-modal-close");
+const sponsorMarquee = document.querySelector(".sponsor-marquee");
+const sponsorMarqueeInner = document.querySelector(".sponsor-marquee-inner");
+const statNumbers = document.querySelectorAll(".stat-box strong");
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
 const socialLinks = [
   { icon: "bi-instagram", label: "Instagram", href: "#" },
@@ -296,6 +299,54 @@ function initPointerEffects() {
   });
 }
 
+function initCountUp() {
+  if (!statNumbers.length || !("IntersectionObserver" in window)) return;
+
+  const parseTarget = (text) => {
+    const numeric = Number.parseInt(text.replace(/[^\d]/g, ""), 10);
+    return Number.isNaN(numeric) ? null : numeric;
+  };
+
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const element = entry.target;
+        const finalText = element.textContent.trim();
+        const target = parseTarget(finalText);
+        if (target === null) return;
+
+        const suffix = finalText.replace(/[\d]/g, "");
+        const start = performance.now();
+        const duration = 1400;
+
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          element.textContent = `${Math.round(target * eased)}${suffix}`;
+
+          if (progress < 1) {
+            window.requestAnimationFrame(tick);
+          } else {
+            element.textContent = finalText;
+          }
+        };
+
+        window.requestAnimationFrame(tick);
+        counterObserver.unobserve(element);
+      });
+    },
+    { threshold: 0.6 },
+  );
+
+  statNumbers.forEach((element) => {
+    if (parseTarget(element.textContent.trim()) !== null) {
+      counterObserver.observe(element);
+    }
+  });
+}
+
 function initMagneticButtons() {
   if (window.matchMedia("(pointer: coarse)").matches) return;
   document.querySelectorAll(".btn-main, .btn-outline-light, .btn-outline-dark, .cta-btn, .social-toggle, .whatsapp-toggle").forEach((button) => {
@@ -330,6 +381,66 @@ function initHeroParallax() {
   });
 }
 
+function initSponsorMarquee() {
+  if (!sponsorMarquee || !sponsorMarqueeInner) return;
+
+  const tracks = sponsorMarqueeInner.querySelectorAll(".sponsor-track");
+  if (tracks.length < 2) return;
+
+  let frameId = null;
+  let offset = 0;
+  let lastTime = 0;
+  let paused = false;
+  let trackWidth = tracks[0].getBoundingClientRect().width;
+
+  const getGap = () => {
+    const styles = window.getComputedStyle(sponsorMarqueeInner);
+    return Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+  };
+
+  let trackGap = getGap();
+
+  const updateSizes = () => {
+    trackWidth = tracks[0].getBoundingClientRect().width;
+    trackGap = getGap();
+    if (offset >= trackWidth + trackGap) {
+      offset = 0;
+    }
+  };
+
+  const animate = (timestamp) => {
+    if (!lastTime) lastTime = timestamp;
+    const delta = timestamp - lastTime;
+    lastTime = timestamp;
+
+    if (!paused) {
+      offset += delta * 0.045;
+      if (offset >= trackWidth + trackGap) {
+        offset = 0;
+      }
+      sponsorMarqueeInner.style.transform = `translate3d(-${offset}px, 0, 0)`;
+    }
+
+    frameId = window.requestAnimationFrame(animate);
+  };
+
+  sponsorMarquee.addEventListener("mouseenter", () => {
+    paused = true;
+  });
+
+  sponsorMarquee.addEventListener("mouseleave", () => {
+    paused = false;
+  });
+
+  window.addEventListener("resize", updateSizes);
+  updateSizes();
+  frameId = window.requestAnimationFrame(animate);
+
+  document.addEventListener("visibilitychange", () => {
+    paused = document.hidden;
+  });
+}
+
 window.addEventListener("scroll", updateScrolledState);
 window.addEventListener("load", () => {
   updateScrolledState();
@@ -341,8 +452,10 @@ window.addEventListener("load", () => {
   initArticleModal();
   initSocialHub();
   initPointerEffects();
+  initCountUp();
   initMagneticButtons();
   initHeroParallax();
+  initSponsorMarquee();
 });
 
 mobileNavToggle?.addEventListener("click", () => {

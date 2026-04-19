@@ -181,7 +181,9 @@ section {
 .btn-main {
   color: #fff;
   background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+  background-size: 200% 200%;
   box-shadow: 0 18px 30px rgba(79, 70, 229, 0.2);
+  animation: buttonGlow 7s ease-in-out infinite;
 }
 
 .cta-btn:hover,
@@ -1823,7 +1825,6 @@ section {
   align-items: center;
   gap: 0;
   width: max-content;
-  animation: sponsorMarqueeLoop 58s linear infinite;
   will-change: transform;
 }
 
@@ -1837,7 +1838,7 @@ section {
 }
 
 .sponsor-marquee:hover .sponsor-marquee-inner {
-  animation-play-state: paused;
+  cursor: grab;
 }
 
 .sponsor-card {
@@ -2094,6 +2095,12 @@ section {
 .page-hero:hover .hero-media img {
   transform: scale(1.05) rotate(-0.45deg);
   filter: saturate(1.09) contrast(1.02);
+}
+
+.section-image:hover,
+.hero-logo-image:hover {
+  transform: scale(1.03);
+  filter: saturate(1.08) contrast(1.02);
 }
 
 .navmenu a {
