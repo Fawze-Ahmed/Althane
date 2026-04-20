@@ -19,7 +19,7 @@ const sponsorMarqueeInner = document.querySelector(".sponsor-marquee-inner");
 const statNumbers = document.querySelectorAll(".stat-box strong");
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
 const socialLinks = [
-  { icon: "bi-instagram", label: "Instagram", href: "#" },
+  { icon: "bi-instagram", label: "Instagram", href: "https://www.instagram.com/blinkdigital4u/" },
   { icon: "bi-linkedin", label: "LinkedIn", href: "#" },
   { icon: "bi-facebook", label: "Facebook", href: "#" },
   { icon: "bi-twitter-x", label: "X", href: "#" },
@@ -193,6 +193,28 @@ function initContactLinkDirection() {
     link.setAttribute("dir", "ltr");
     link.style.direction = "ltr";
     link.style.unicodeBidi = "isolate";
+  });
+}
+
+function removeDirectPhoneContacts() {
+  document.querySelectorAll(".whatsapp-floating, .whatsapp-list").forEach((node) => {
+    node.remove();
+  });
+
+  document.querySelectorAll(".contact-card").forEach((card) => {
+    if (card.querySelector("a[href^='tel:'], a[href*='wa.me']")) {
+      card.remove();
+    }
+  });
+
+  document.querySelectorAll(".footer-contact p, .contact-box p").forEach((block) => {
+    if (block.querySelector("a[href^='tel:'], a[href*='wa.me']")) {
+      block.remove();
+    }
+  });
+
+  document.querySelectorAll(".whatsapp-panel").forEach((panel) => {
+    panel.remove();
   });
 }
 
@@ -383,55 +405,7 @@ function initHeroParallax() {
 
 function initSponsorMarquee() {
   if (!sponsorMarquee || !sponsorMarqueeInner) return;
-
-  const tracks = sponsorMarqueeInner.querySelectorAll(".sponsor-track");
-  if (tracks.length < 2) return;
-
-  let frameId = null;
-  let offset = 0;
-  let lastTime = 0;
-  let paused = false;
-  let trackWidth = tracks[0].getBoundingClientRect().width;
-
-  const updateSizes = () => {
-    trackWidth = tracks[0].getBoundingClientRect().width;
-    if (offset >= trackWidth) {
-      offset = 0;
-    }
-    sponsorMarqueeInner.style.transform = `translate3d(-${offset}px, 0, 0)`;
-  };
-
-  const animate = (timestamp) => {
-    if (!lastTime) lastTime = timestamp;
-    const delta = timestamp - lastTime;
-    lastTime = timestamp;
-
-    if (!paused) {
-      offset += delta * 0.04;
-      if (offset >= trackWidth) {
-        offset -= trackWidth;
-      }
-      sponsorMarqueeInner.style.transform = `translate3d(-${offset}px, 0, 0)`;
-    }
-
-    frameId = window.requestAnimationFrame(animate);
-  };
-
-  sponsorMarquee.addEventListener("mouseenter", () => {
-    paused = true;
-  });
-
-  sponsorMarquee.addEventListener("mouseleave", () => {
-    paused = false;
-  });
-
-  window.addEventListener("resize", updateSizes);
-  updateSizes();
-  frameId = window.requestAnimationFrame(animate);
-
-  document.addEventListener("visibilitychange", () => {
-    paused = document.hidden;
-  });
+  sponsorMarqueeInner.style.removeProperty("transform");
 }
 
 function initRevealMotion() {
@@ -461,6 +435,7 @@ function initRevealMotion() {
 window.addEventListener("scroll", updateScrolledState);
 window.addEventListener("load", () => {
   updateScrolledState();
+  removeDirectPhoneContacts();
   initRevealMotion();
   setActiveNav();
   initLanguageSwitcher();
