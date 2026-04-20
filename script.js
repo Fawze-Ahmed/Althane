@@ -434,9 +434,34 @@ function initSponsorMarquee() {
   });
 }
 
+function initRevealMotion() {
+  const groups = [
+    ".portfolio-grid .reveal",
+    ".portfolio-feature-grid .reveal",
+    ".row .reveal",
+    ".section-title.reveal",
+    ".logo-band-inner.reveal",
+    ".container > .reveal",
+  ];
+
+  groups.forEach((selector) => {
+    const items = document.querySelectorAll(selector);
+    if (!items.length) return;
+
+    items.forEach((item, index) => {
+      if (!item.classList.contains("reveal-left") && !item.classList.contains("reveal-right")) {
+        item.classList.add(index % 2 === 0 ? "reveal-right" : "reveal-left");
+      }
+
+      item.style.setProperty("--reveal-delay", `${Math.min(index * 90, 520)}ms`);
+    });
+  });
+}
+
 window.addEventListener("scroll", updateScrolledState);
 window.addEventListener("load", () => {
   updateScrolledState();
+  initRevealMotion();
   setActiveNav();
   initLanguageSwitcher();
   initBlogFilters();
@@ -493,8 +518,8 @@ if ("IntersectionObserver" in window) {
   document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
 }
 
-document.querySelectorAll(".service-brief-card, .article-card, .detail-card, .value-card").forEach((card, index) => {
-  card.style.transitionDelay = `${Math.min(index * 40, 220)}ms`;
+document.querySelectorAll(".service-brief-card, .article-card, .detail-card, .value-card, .contact-card, .portfolio-card").forEach((card, index) => {
+  card.style.transitionDelay = `${Math.min(index * 45, 260)}ms`;
 });
 
 window.googleTranslateElementInit = function googleTranslateElementInit() {
