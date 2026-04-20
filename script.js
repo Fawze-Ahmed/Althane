@@ -17,6 +17,11 @@ const articleModalClose = document.getElementById("article-modal-close");
 const sponsorMarquee = document.querySelector(".sponsor-marquee");
 const sponsorMarqueeInner = document.querySelector(".sponsor-marquee-inner");
 const statNumbers = document.querySelectorAll(".stat-box strong");
+const weatherWidget = document.getElementById("weather-widget");
+const currencyWidget = document.getElementById("currency-widget");
+const cryptoWidget = document.getElementById("crypto-widget");
+const techFeedGrid = document.getElementById("tech-feed-grid");
+const techFeedStatus = document.getElementById("tech-feed-status");
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
 const socialLinks = [
   { icon: "bi-instagram", label: "Instagram", href: "https://www.instagram.com/blinkdigital4u/" },
@@ -369,6 +374,223 @@ function initCountUp() {
   });
 }
 
+function formatDateArabic(dateString) {
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("ar", {
+    day: "numeric",
+    month: "long",
+  }).format(date);
+}
+
+function renderInsightError(element, title, message) {
+  if (!element) return;
+  element.innerHTML = `
+    <div class="insight-card-head">
+      <span class="insight-badge">${title}</span>
+      <h3>تعذر تحميل البيانات الآن</h3>
+    </div>
+    <p class="insight-error">${message}</p>
+  `;
+}
+
+function weatherCodeToArabic(code) {
+  const labels = {
+    0: "سماء صافية",
+    1: "صحو غالبًا",
+    2: "غائم جزئيًا",
+    3: "غائم",
+    45: "ضباب",
+    48: "ضباب كثيف",
+    51: "رذاذ خفيف",
+    53: "رذاذ متوسط",
+    55: "رذاذ كثيف",
+    61: "أمطار خفيفة",
+    63: "أمطار متوسطة",
+    65: "أمطار غزيرة",
+    71: "ثلوج خفيفة",
+    80: "زخات خفيفة",
+    81: "زخات متوسطة",
+    82: "زخات قوية",
+    95: "عاصفة رعدية",
+  };
+
+  return labels[code] || "حالة جوية مستقرة";
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function initWeatherWidget() {
+  if (!weatherWidget) return;
+
+  try {
+    const data = await fetchJson(
+      "https://api.open-meteo.com/v1/forecast?latitude=25.2048&longitude=55.2708&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=auto",
+    );
+
+    const current = data.current || {};
+    const daily = data.daily || {};
+    const todayMax = daily.temperature_2m_max?.[0];
+    const todayMin = daily.temperature_2m_min?.[0];
+
+    weatherWidget.innerHTML = `
+      <div class="insight-card-head">
+        <span class="insight-badge">الطقس</span>
+        <h3>نشرة الطقس في دبي</h3>
+      </div>
+      <div class="insight-metric">${Math.round(current.temperature_2m ?? 0)}°</div>
+      <p class="insight-summary">${weatherCodeToArabic(current.weather_code)} مع إحساس فعلي يقارب ${Math.round(current.apparent_temperature ?? 0)}°.</p>
+      <ul class="insight-list">
+        <li><span>العظمى اليوم</span><strong>${Math.round(todayMax ?? 0)}°</strong></li>
+        <li><span>الصغرى اليوم</span><strong>${Math.round(todayMin ?? 0)}°</strong></li>
+        <li><span>سرعة الرياح</span><strong>${Math.round(current.wind_speed_10m ?? 0)} كم/س</strong></li>
+      </ul>
+      <p class="insight-footnote">المصدر: Open-Meteo</p>
+    `;
+  } catch (error) {
+    renderInsightError(weatherWidget, "الطقس", "تعذر جلب حالة الطقس الآن. حاول تحديث الصفحة بعد قليل.");
+  }
+}
+
+async function initCurrencyWidget() {
+  if (!currencyWidget) return;
+
+  try {
+    const data = await fetchJson("https://api.frankfurter.dev/v1/latest?base=USD&symbols=AED,EUR,SAR,EGP");
+    const rates = data.rates || {};
+
+    currencyWidget.innerHTML = `
+      <div class="insight-card-head">
+        <span class="insight-badge">العملات</span>
+        <h3>سعر صرف الدولار الآن</h3>
+      </div>
+      <p class="insight-summary">عرض سريع لأسعار 1 دولار أمريكي مقابل أهم العملات المستخدمة في المنطقة.</p>
+      <ul class="insight-list">
+        <li><span>درهم إماراتي</span><strong>${rates.AED?.toFixed(2) ?? "--"} AED</strong></li>
+        <li><span>ريال سعودي</span><strong>${rates.SAR?.toFixed(2) ?? "--"} SAR</strong></li>
+        <li><span>جنيه مصري</span><strong>${rates.EGP?.toFixed(2) ?? "--"} EGP</strong></li>
+        <li><span>يورو</span><strong>${rates.EUR?.toFixed(2) ?? "--"} EUR</strong></li>
+      </ul>
+      <p class="insight-footnote">آخر تحديث: ${formatDateArabic(data.date)} | المصدر: Frankfurter</p>
+    `;
+  } catch (error) {
+    renderInsightError(currencyWidget, "العملات", "تعذر تحميل أسعار العملات الآن. حاول مرة أخرى لاحقًا.");
+  }
+}
+
+async function initCryptoWidget() {
+  if (!cryptoWidget) return;
+
+  try {
+    const [bitcoin, ethereum, solana] = await Promise.all([
+      fetchJson("https://api.coinpaprika.com/v1/tickers/btc-bitcoin"),
+      fetchJson("https://api.coinpaprika.com/v1/tickers/eth-ethereum"),
+      fetchJson("https://api.coinpaprika.com/v1/tickers/sol-solana"),
+    ]);
+
+    const items = [
+      { label: "Bitcoin", symbol: "BTC", price: bitcoin.quotes?.USD?.price, change: bitcoin.quotes?.USD?.percent_change_24h },
+      { label: "Ethereum", symbol: "ETH", price: ethereum.quotes?.USD?.price, change: ethereum.quotes?.USD?.percent_change_24h },
+      { label: "Solana", symbol: "SOL", price: solana.quotes?.USD?.price, change: solana.quotes?.USD?.percent_change_24h },
+    ];
+
+    cryptoWidget.innerHTML = `
+      <div class="insight-card-head">
+        <span class="insight-badge">الكريبتو</span>
+        <h3>حركة العملات المشفرة</h3>
+      </div>
+      <p class="insight-summary">نظرة مركزة على أبرز العملات المشفرة الأكثر متابعة داخل السوق.</p>
+      <ul class="insight-list">
+        ${items
+          .map((item) => {
+            const changeClass = item.change >= 0 ? "is-up" : "is-down";
+            const sign = item.change >= 0 ? "+" : "";
+            return `<li><span>${item.label} <small>${item.symbol}</small></span><strong>$${item.price?.toLocaleString("en-US", { maximumFractionDigits: 2 }) ?? "--"} <em class="${changeClass}">${sign}${item.change?.toFixed(2) ?? "--"}%</em></strong></li>`;
+          })
+          .join("")}
+      </ul>
+      <p class="insight-footnote">المصدر: CoinPaprika</p>
+    `;
+  } catch (error) {
+    renderInsightError(cryptoWidget, "الكريبتو", "تعذر تحميل أسعار العملات المشفرة الآن. حاول لاحقًا.");
+  }
+}
+
+function renderTechFeedError() {
+  if (!techFeedGrid || !techFeedStatus) return;
+  techFeedStatus.textContent = "تعذر تحميل التغذية التقنية الآن.";
+  techFeedGrid.innerHTML = `
+    <div class="col-12">
+      <article class="external-article-card">
+        <div class="external-article-body">
+          <span class="article-tag">تحديث</span>
+          <h3>لم نتمكن من جلب المقالات التقنية في هذه اللحظة</h3>
+          <p>الصفحة ما زالت تحتوي على مكتبة المقالات الداخلية أسفل هذا القسم، ويمكن إعادة المحاولة بتحديث الصفحة لاحقًا.</p>
+        </div>
+      </article>
+    </div>
+  `;
+}
+
+async function initTechFeed() {
+  if (!techFeedGrid || !techFeedStatus) return;
+
+  try {
+    const articles = await fetchJson("https://dev.to/api/articles?tag=technology&per_page=6");
+    const safeArticles = Array.isArray(articles) ? articles.slice(0, 6) : [];
+
+    techFeedStatus.textContent = "يتم تحديث هذا القسم مباشرة من DEV API بالمقالات التقنية العامة.";
+
+    techFeedGrid.innerHTML = safeArticles
+      .map((article) => {
+        const cover = article.cover_image || article.social_image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80";
+        const readingTime = article.reading_time_minutes ? `${article.reading_time_minutes} دقائق قراءة` : "مقال تقني";
+        return `
+          <div class="col-lg-4 col-md-6">
+            <article class="external-article-card">
+              <div class="external-article-media">
+                <img src="${cover}" alt="${article.title}" loading="lazy" />
+              </div>
+              <div class="external-article-body">
+                <span class="article-tag">تقنية حديثة</span>
+                <h3>${article.title}</h3>
+                <p>${article.description || "مقال تقني حديث حول البرمجة، المنتجات الرقمية، أو الاتجاهات التقنية الحالية."}</p>
+                <div class="external-article-meta">
+                  <span>${article.user?.name || "DEV Community"}</span>
+                  <span>${formatDateArabic(article.published_at)}</span>
+                  <span>${readingTime}</span>
+                </div>
+                <a href="${article.url}" target="_blank" rel="noreferrer">قراءة المقال</a>
+              </div>
+            </article>
+          </div>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    renderTechFeedError();
+  }
+}
+
+function initLiveDataSections() {
+  initWeatherWidget();
+  initCurrencyWidget();
+  initCryptoWidget();
+  initTechFeed();
+}
+
 function initMagneticButtons() {
   if (window.matchMedia("(pointer: coarse)").matches) return;
   document.querySelectorAll(".btn-main, .btn-outline-light, .btn-outline-dark, .cta-btn, .social-toggle, .whatsapp-toggle").forEach((button) => {
@@ -449,6 +671,7 @@ window.addEventListener("load", () => {
   initMagneticButtons();
   initHeroParallax();
   initSponsorMarquee();
+  initLiveDataSections();
 });
 
 mobileNavToggle?.addEventListener("click", () => {
