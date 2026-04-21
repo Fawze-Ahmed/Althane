@@ -346,6 +346,12 @@ section {
   object-fit: cover;
 }
 
+.hero-video-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero-overlay {
   background:
     linear-gradient(120deg, rgba(8, 17, 31, 0.95), rgba(8, 17, 31, 0.66)),
@@ -393,6 +399,17 @@ section {
   max-width: 640px;
 }
 
+.hero-copy-shell-centered {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero-copy-centered {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
 .hero-metric-pills {
   display: flex;
   flex-wrap: wrap;
@@ -418,6 +435,52 @@ section {
   gap: 14px;
   flex-wrap: wrap;
   margin-top: 28px;
+}
+
+.hero-actions-centered {
+  justify-content: center;
+}
+
+.home-hero-video-section {
+  min-height: 92vh;
+  padding-top: 136px;
+}
+
+.home-hero-video-section .container {
+  max-width: 1180px;
+}
+
+.home-hero-video-section .row {
+  min-height: calc(92vh - 136px);
+  align-items: center;
+}
+
+.home-hero-video-section h1 {
+  font-size: clamp(2.6rem, 5vw, 4.7rem);
+  line-height: 1.2;
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+
+.home-hero-video-section .hero-copy {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.home-hero-video-section .hero-actions {
+  margin-top: 30px;
+}
+
+.home-hero-video-section .btn-main,
+.home-hero-video-section .btn-outline-light {
+  min-width: 190px;
+}
+
+.home-hero-video-section .hero-overlay {
+  background:
+    linear-gradient(180deg, rgba(6, 14, 28, 0.58), rgba(6, 14, 28, 0.7)),
+    linear-gradient(90deg, rgba(6, 14, 28, 0.36), rgba(6, 14, 28, 0.22));
 }
 
 
@@ -6185,5 +6248,54 @@ html[lang="en"] .hero h1 {
   50% {
     transform: translateY(-4px);
     box-shadow: 0 30px 60px rgba(17, 38, 63, 0.14);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .home-hero-video-section {
+    min-height: 82vh;
+    padding-top: 124px;
+  }
+
+  .home-hero-video-section .row {
+    min-height: calc(82vh - 124px);
+  }
+
+  .home-hero-video-section h1 {
+    font-size: clamp(2.1rem, 7vw, 3.4rem);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .home-hero-video-section {
+    min-height: 74vh;
+    padding-top: 118px;
+  }
+
+  .home-hero-video-section .hero-media {
+    display: block !important;
+  }
+
+  .home-hero-video-section .row {
+    min-height: calc(74vh - 118px);
+  }
+
+  .home-hero-video-section .hero-copy-shell-centered {
+    max-width: 100%;
+  }
+
+  .home-hero-video-section h1 {
+    font-size: clamp(1.85rem, 8.5vw, 2.7rem);
+    line-height: 1.35;
+  }
+
+  .home-hero-video-section .hero-actions {
+    gap: 12px;
+  }
+
+  .home-hero-video-section .btn-main,
+  .home-hero-video-section .btn-outline-light {
+    width: 100%;
+    min-width: 0;
   }
 }
