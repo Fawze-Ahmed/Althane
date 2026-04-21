@@ -6501,14 +6501,19 @@ html[lang="en"] .hero h1 {
   }
 
   .home-hero-slider-section h1 {
-    max-width: 100%;
-    font-size: clamp(1.55rem, 5.6vw, 2rem);
-    line-height: 1.72;
+    width: 100%;
+    max-width: 312px;
+    margin-inline: auto;
+    font-size: clamp(1.48rem, 5.2vw, 1.86rem);
+    line-height: 1.56;
     margin-bottom: 18px;
+    text-align: center;
+    text-wrap: balance;
+    word-break: keep-all;
   }
 
   .home-hero-slider-section .hero-actions {
-    width: min(100%, 320px);
+    width: min(100%, 304px);
     margin-inline: auto;
     justify-content: center;
     flex-direction: row;
@@ -6661,7 +6666,7 @@ html[lang="en"] .hero h1 {
 
   .chatbot-floating {
     left: 12px;
-    bottom: 112px;
+    bottom: 154px;
   }
 
   .chatbot-toggle {
@@ -6693,12 +6698,13 @@ html[lang="en"] .hero h1 {
   }
 
   .home-hero-slider-section h1 {
-    font-size: clamp(1.48rem, 5.3vw, 1.8rem);
-    line-height: 1.76;
+    max-width: 292px;
+    font-size: clamp(1.4rem, 4.9vw, 1.68rem);
+    line-height: 1.58;
   }
 
   .home-hero-slider-section .hero-actions {
-    width: min(100%, 300px);
+    width: min(100%, 290px);
   }
 
   .home-proof-item,
@@ -6713,7 +6719,7 @@ html[lang="en"] .hero h1 {
   }
 
   .chatbot-floating {
-    bottom: 104px;
+    bottom: 146px;
   }
 
   .chatbot-panel {
