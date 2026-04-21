@@ -6712,7 +6712,7 @@ html[lang="en"] .hero h1 {
     display: block !important;
     left: auto;
     right: 12px;
-    bottom: 34px;
+    bottom: 86px;
     z-index: 10000;
   }
 
@@ -6773,7 +6773,7 @@ html[lang="en"] .hero h1 {
 
   .social-floating {
     right: 12px;
-    bottom: 28px;
+    bottom: 82px;
   }
 
   .social-panel {
