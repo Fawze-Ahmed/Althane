@@ -76,6 +76,55 @@ const socialLinks = [
   { icon: "bi-envelope", label: "Email", href: "mailto:blinkagency4u@gmail.com" },
 ];
 
+const chatbotUiText = {
+  ar: {
+    toggleLabel: "مساعد BLINK الذكي",
+    badge: "BLINK Assistant",
+    title: "كيف أقدر أساعدك؟",
+    subtitle: "مساعد سريع مبني على خدمات BLINK وطريقة عملنا.",
+    welcome: "مرحبًا، أقدر أجاوب على أكثر الأسئلة شيوعًا عن الخدمات، التنفيذ، واختيار المسار المناسب.",
+    inputPlaceholder: "اكتب سؤالك هنا",
+    sendLabel: "إرسال السؤال",
+    escalate: "التواصل مع أحد مسؤولي الشركة",
+    formTitle: "أرسل طلبك مباشرة",
+    formSubtitle: "املأ النموذج المختصر وسنستلم طلبك على نفس بريد التواصل المعتمد لدى BLINK.",
+    back: "الرجوع إلى المحادثة",
+    name: "الاسم الكامل",
+    phone: "رقم الهاتف",
+    email: "البريد الإلكتروني",
+    company: "اسم الشركة",
+    service: "الخدمة المطلوبة",
+    message: "اكتب نبذة مختصرة عن طلبك",
+    submit: "إرسال الطلب",
+    closeLabel: "إغلاق المساعد",
+    success: "تم إرسال الطلب بنجاح. سيصل إلى فريق BLINK على بريد التواصل وسنراجع التفاصيل بأسرع وقت.",
+    subject: "طلب جديد من مساعد BLINK الذكي",
+  },
+  en: {
+    toggleLabel: "BLINK smart assistant",
+    badge: "BLINK Assistant",
+    title: "How can I help you?",
+    subtitle: "A quick assistant built around BLINK services and how we work.",
+    welcome: "Hi, I can answer common questions about services, delivery, and the best path to start with.",
+    inputPlaceholder: "Type your question here",
+    sendLabel: "Send question",
+    escalate: "Talk to a BLINK specialist",
+    formTitle: "Send your request",
+    formSubtitle: "Fill in the short form and your request will reach the same official BLINK contact email.",
+    back: "Back to chat",
+    name: "Full name",
+    phone: "Phone number",
+    email: "Email address",
+    company: "Company name",
+    service: "Requested service",
+    message: "Write a short brief about your request",
+    submit: "Send request",
+    closeLabel: "Close assistant",
+    success: "Your request has been sent successfully. The BLINK team will receive it on the official contact email and review it shortly.",
+    subject: "New request from BLINK smart assistant",
+  },
+};
+
 function getSavedLanguage() {
   return localStorage.getItem("site-language") || "ar";
 }
@@ -503,6 +552,207 @@ function initChatAssistant() {
     }, 400);
   });
 
+  refreshDynamicTranslations();
+}
+
+function initChatAssistantV2() {
+  if (!document.body || document.querySelector(".chatbot-floating")) return;
+
+  const getChatbotText = () => chatbotUiText[getSavedLanguage()] || chatbotUiText.ar;
+  const text = getChatbotText();
+
+  const widget = document.createElement("div");
+  widget.className = "chatbot-floating";
+  widget.innerHTML = `
+    <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-label="${text.toggleLabel}">
+      <span class="chatbot-toggle-ring"></span>
+      <span class="chatbot-toggle-core">
+        <i class="bi bi-robot"></i>
+        <span class="chatbot-toggle-spark chatbot-toggle-spark-one"></span>
+        <span class="chatbot-toggle-spark chatbot-toggle-spark-two"></span>
+        <span class="chatbot-toggle-spark chatbot-toggle-spark-three"></span>
+      </span>
+    </button>
+    <div id="chatbot-panel" class="chatbot-panel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div>
+          <span class="chatbot-badge">${text.badge}</span>
+          <strong id="chatbot-title">${text.title}</strong>
+          <p id="chatbot-subtitle">${text.subtitle}</p>
+        </div>
+        <button id="chatbot-close" class="chatbot-close" type="button" aria-label="${text.closeLabel}">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="chatbot-stage">
+        <div class="chatbot-main-view">
+          <div id="chatbot-conversation" class="chatbot-body">
+            <div class="chatbot-message bot">
+              <p id="chatbot-welcome">${text.welcome}</p>
+            </div>
+          </div>
+          <div class="chatbot-quick-actions">
+            ${chatbotKnowledgeBase
+              .slice(0, 6)
+              .map((item) => `<button class="chatbot-chip" type="button" data-chatbot-prompt="${item.label}">${item.label}</button>`)
+              .join("")}
+          </div>
+          <form id="chatbot-input-form" class="chatbot-input-wrap">
+            <input id="chatbot-input" type="text" placeholder="${text.inputPlaceholder}" autocomplete="off" />
+            <button type="submit" aria-label="${text.sendLabel}"><i class="bi bi-arrow-up-left"></i></button>
+          </form>
+          <div class="chatbot-escalation">
+            <button id="chatbot-escalate" class="chatbot-escalate-btn" type="button">${text.escalate}</button>
+          </div>
+        </div>
+        <div id="chatbot-lead-panel" class="chatbot-lead-panel" aria-hidden="true">
+          <div class="chatbot-lead-head">
+            <button id="chatbot-lead-back" class="chatbot-lead-back" type="button">
+              <i class="bi bi-arrow-right-short"></i>
+              <span id="chatbot-back-label">${text.back}</span>
+            </button>
+            <strong id="chatbot-form-title">${text.formTitle}</strong>
+            <p id="chatbot-form-subtitle">${text.formSubtitle}</p>
+          </div>
+          <form id="chatbot-lead-form" class="chatbot-lead-form" action="https://formsubmit.co/blinkagency4u@gmail.com" method="POST" target="chatbot-submit-frame">
+            <input id="chatbot-subject" type="hidden" name="_subject" value="${text.subject}" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <div class="row g-2">
+              <div class="col-12"><input id="chatbot-name" class="form-control" type="text" name="name" placeholder="${text.name}" required /></div>
+              <div class="col-md-6"><input id="chatbot-phone" class="form-control" type="tel" name="phone" placeholder="${text.phone}" required /></div>
+              <div class="col-md-6"><input id="chatbot-email" class="form-control" type="email" name="email" placeholder="${text.email}" required /></div>
+              <div class="col-md-6"><input id="chatbot-company" class="form-control" type="text" name="company" placeholder="${text.company}" /></div>
+              <div class="col-md-6"><input id="chatbot-service" class="form-control" type="text" name="service" placeholder="${text.service}" /></div>
+              <div class="col-12"><textarea id="chatbot-message" class="form-control" name="message" rows="4" placeholder="${text.message}" required></textarea></div>
+              <div class="col-12"><button id="chatbot-submit" class="chatbot-form-submit" type="submit">${text.submit}</button></div>
+            </div>
+          </form>
+          <p id="chatbot-form-status" class="chatbot-form-status"></p>
+          <iframe name="chatbot-submit-frame" title="chatbot submit frame" class="chatbot-submit-frame"></iframe>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(widget);
+
+  const panel = widget.querySelector("#chatbot-panel");
+  const toggle = widget.querySelector("#chatbot-toggle");
+  const close = widget.querySelector("#chatbot-close");
+  const conversation = widget.querySelector("#chatbot-conversation");
+  const inputForm = widget.querySelector("#chatbot-input-form");
+  const input = widget.querySelector("#chatbot-input");
+  const escalateButton = widget.querySelector("#chatbot-escalate");
+  const leadPanel = widget.querySelector("#chatbot-lead-panel");
+  const leadBackButton = widget.querySelector("#chatbot-lead-back");
+  const leadForm = widget.querySelector("#chatbot-lead-form");
+  const formStatus = widget.querySelector("#chatbot-form-status");
+  const subjectInput = widget.querySelector("#chatbot-subject");
+
+  const syncChatbotLanguage = () => {
+    const ui = getChatbotText();
+    toggle?.setAttribute("aria-label", ui.toggleLabel);
+    close?.setAttribute("aria-label", ui.closeLabel);
+    widget.querySelector(".chatbot-badge").textContent = ui.badge;
+    widget.querySelector("#chatbot-title").textContent = ui.title;
+    widget.querySelector("#chatbot-subtitle").textContent = ui.subtitle;
+    widget.querySelector("#chatbot-welcome").textContent = ui.welcome;
+    input?.setAttribute("placeholder", ui.inputPlaceholder);
+    inputForm?.querySelector("button")?.setAttribute("aria-label", ui.sendLabel);
+    escalateButton.textContent = ui.escalate;
+    widget.querySelector("#chatbot-back-label").textContent = ui.back;
+    widget.querySelector("#chatbot-form-title").textContent = ui.formTitle;
+    widget.querySelector("#chatbot-form-subtitle").textContent = ui.formSubtitle;
+    widget.querySelector("#chatbot-name")?.setAttribute("placeholder", ui.name);
+    widget.querySelector("#chatbot-phone")?.setAttribute("placeholder", ui.phone);
+    widget.querySelector("#chatbot-email")?.setAttribute("placeholder", ui.email);
+    widget.querySelector("#chatbot-company")?.setAttribute("placeholder", ui.company);
+    widget.querySelector("#chatbot-service")?.setAttribute("placeholder", ui.service);
+    widget.querySelector("#chatbot-message")?.setAttribute("placeholder", ui.message);
+    widget.querySelector("#chatbot-submit").textContent = ui.submit;
+    if (subjectInput) subjectInput.value = ui.subject;
+  };
+
+  const appendMessage = (type, message) => {
+    if (!conversation || !message) return;
+    const bubble = document.createElement("div");
+    bubble.className = `chatbot-message ${type}`;
+    bubble.innerHTML = `<p>${message}</p>`;
+    conversation.appendChild(bubble);
+    conversation.scrollTop = conversation.scrollHeight;
+    refreshDynamicTranslations();
+  };
+
+  const setLeadPanelState = (open) => {
+    leadPanel?.classList.toggle("open", open);
+    leadPanel?.setAttribute("aria-hidden", open ? "false" : "true");
+    panel?.classList.toggle("is-form-open", open);
+    if (open) {
+      formStatus.textContent = "";
+      leadPanel?.querySelector("input[name='name']")?.focus();
+    } else {
+      window.setTimeout(() => input?.focus(), 120);
+    }
+  };
+
+  const togglePanel = (open) => {
+    const shouldOpen = typeof open === "boolean" ? open : !panel?.classList.contains("open");
+    panel?.classList.toggle("open", shouldOpen);
+    panel?.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+    if (!shouldOpen) setLeadPanelState(false);
+    if (shouldOpen) {
+      syncChatbotLanguage();
+      window.setTimeout(() => input?.focus(), 120);
+    }
+  };
+
+  toggle?.addEventListener("click", () => togglePanel());
+  close?.addEventListener("click", () => togglePanel(false));
+
+  document.addEventListener("click", (event) => {
+    if (!panel || !toggle) return;
+    if (panel.contains(event.target) || toggle.contains(event.target)) return;
+    panel.classList.remove("open");
+    panel.setAttribute("aria-hidden", "true");
+    setLeadPanelState(false);
+  });
+
+  widget.querySelectorAll("[data-chatbot-prompt]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const prompt = button.getAttribute("data-chatbot-prompt");
+      appendMessage("user", prompt);
+      window.setTimeout(() => appendMessage("bot", getChatbotReply(prompt)), 180);
+    });
+  });
+
+  inputForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const question = input?.value.trim();
+    if (!question) return;
+    appendMessage("user", question);
+    input.value = "";
+    window.setTimeout(() => appendMessage("bot", getChatbotReply(question)), 220);
+  });
+
+  escalateButton?.addEventListener("click", () => {
+    syncChatbotLanguage();
+    setLeadPanelState(true);
+  });
+
+  leadBackButton?.addEventListener("click", () => {
+    setLeadPanelState(false);
+  });
+
+  leadForm?.addEventListener("submit", () => {
+    if (!formStatus) return;
+    formStatus.textContent = getChatbotText().success;
+    window.setTimeout(() => {
+      leadForm.reset();
+    }, 400);
+  });
+
+  syncChatbotLanguage();
   refreshDynamicTranslations();
 }
 
@@ -1257,7 +1507,7 @@ window.addEventListener("load", () => {
   initSponsorMarquee();
   initLiveDataSections();
   initFinanceAnalyzer();
-  initChatAssistant();
+  initChatAssistantV2();
 });
 
 mobileNavToggle?.addEventListener("click", () => {
