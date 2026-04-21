@@ -6709,7 +6709,25 @@ html[lang="en"] .hero h1 {
   }
 
   .social-floating {
-    display: none !important;
+    display: block !important;
+    left: auto;
+    right: 12px;
+    bottom: 34px;
+    z-index: 10000;
+  }
+
+  .social-toggle {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+  }
+
+  .social-panel {
+    left: auto;
+    right: 0;
+    bottom: 66px;
+    width: 196px;
+    transform-origin: bottom right;
   }
 }
 
@@ -6751,6 +6769,16 @@ html[lang="en"] .hero h1 {
 
   .chatbot-floating {
     bottom: 28px;
+  }
+
+  .social-floating {
+    right: 12px;
+    bottom: 28px;
+  }
+
+  .social-panel {
+    width: 184px;
+    padding: 14px;
   }
 
   .chatbot-panel {
