@@ -6357,32 +6357,60 @@ html[lang="en"] .hero h1 {
 
 @media (max-width: 767.98px) {
   .home-hero-slider-section {
-    min-height: 62vh;
-    padding-top: 112px;
+    min-height: 72vh;
+    padding-top: 104px;
   }
 
-  .home-hero-slider-section .hero-media {
+  .home-hero-slider-section .hero-media,
+  .home-hero-slider-section .hero-slider-shell,
+  .home-hero-slider-section .hero-slider-inner,
+  .home-hero-slider-section .carousel-item {
     display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .home-hero-slider-section .hero-slider-shell {
+    border-radius: 0;
+    background: none;
+  }
+
+  .home-hero-slider-section .hero-slider-shell::before,
+  .home-hero-slider-section .hero-slider-shell::after,
+  .home-hero-slider-section .hero-slider-indicators {
+    display: none !important;
   }
 
   .home-hero-slider-section .row {
-    min-height: calc(62vh - 112px);
+    min-height: calc(72vh - 104px);
   }
 
   .home-hero-slider-section .hero-copy-shell-centered {
-    max-width: 100%;
+    width: min(100%, 88vw);
+    max-width: 330px;
+    padding-inline: 0;
   }
 
   .home-hero-slider-section h1 {
-    max-width: 100%;
-    font-size: clamp(1.5rem, 5.4vw, 1.95rem);
-    line-height: 1.58;
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    font-size: clamp(1.34rem, 4.9vw, 1.72rem);
+    line-height: 1.52;
+    margin-bottom: 16px;
+    text-align: center;
+    text-wrap: balance;
+    word-break: normal;
   }
 
   .home-hero-slider-section .hero-actions {
+    width: min(100%, 290px);
+    margin-inline: auto;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   .home-hero-slider-section .btn-main,
@@ -6390,25 +6418,24 @@ html[lang="en"] .hero h1 {
     width: auto;
     min-width: 0;
     flex: 1 1 0;
-    padding-inline: 16px;
+    min-height: 44px;
+    font-size: 13px;
+    padding-inline: 10px;
   }
 
-  .hero-slider-shell::before {
-    inset: 18px;
-    border-radius: 24px;
+  .home-hero-slider-section .hero-slide-image {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    object-fit: cover;
+    object-position: center center;
+    animation: none;
   }
 
-  .hero-slide-image {
-    padding: 22px 18px 44px;
-  }
-
-  .hero-slider-indicators {
-    bottom: 16px;
-    gap: 8px;
-  }
-
-  .hero-slider-indicators [data-bs-target] {
-    width: 38px;
+  .home-hero-slider-section .hero-overlay {
+    background:
+      linear-gradient(180deg, rgba(5, 10, 22, 0.52), rgba(5, 10, 22, 0.84)),
+      linear-gradient(90deg, rgba(5, 10, 22, 0.24), rgba(5, 10, 22, 0.24));
   }
 }
 
@@ -6666,7 +6693,7 @@ html[lang="en"] .hero h1 {
 
   .chatbot-floating {
     left: 12px;
-    bottom: 154px;
+    bottom: 34px;
   }
 
   .chatbot-toggle {
@@ -6680,6 +6707,10 @@ html[lang="en"] .hero h1 {
     bottom: 74px;
     border-radius: 22px;
   }
+
+  .social-floating {
+    display: none !important;
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -6689,22 +6720,22 @@ html[lang="en"] .hero h1 {
   }
 
   .home-hero-slider-section {
-    min-height: 66vh;
-    padding-top: 104px;
+    min-height: 68vh;
+    padding-top: 100px;
   }
 
   .home-hero-slider-section .row {
-    min-height: calc(66vh - 104px);
+    min-height: calc(68vh - 100px);
   }
 
   .home-hero-slider-section h1 {
-    max-width: 292px;
-    font-size: clamp(1.4rem, 4.9vw, 1.68rem);
-    line-height: 1.58;
+    max-width: 300px;
+    font-size: clamp(1.28rem, 4.7vw, 1.56rem);
+    line-height: 1.5;
   }
 
   .home-hero-slider-section .hero-actions {
-    width: min(100%, 290px);
+    width: min(100%, 276px);
   }
 
   .home-proof-item,
@@ -6719,7 +6750,7 @@ html[lang="en"] .hero h1 {
   }
 
   .chatbot-floating {
-    bottom: 146px;
+    bottom: 28px;
   }
 
   .chatbot-panel {
