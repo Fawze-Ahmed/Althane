@@ -9,9 +9,9 @@
     />
     <title>BLINK | حلول رقمية متكاملة</title>
     <meta name="theme-color" content="#0d2240" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+    <link rel="icon" type="image/png" href="assets/blink-logo-new.png" />
+    <link rel="apple-touch-icon" href="assets/blink-logo-new.png" />
+    <link rel="shortcut icon" href="assets/blink-logo-new.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -72,11 +72,31 @@
       </div>
     </header>
     <main class="main home-main">
-      <section class="hero section dark-background home-hero-section home-hero-video-section">
-        <div class="hero-media hero-video-media">
-          <video autoplay muted loop playsinline preload="metadata" poster="assets/blink-automation-partner-logo.jpeg">
-            <source src="WhatsApp Video 2026-04-19 at 11.56.00 AM.mp4" type="video/mp4" />
-          </video>
+      <section class="hero section dark-background home-hero-section home-hero-slider-section">
+        <div class="hero-media hero-slider-media">
+          <div id="homeHeroSlider" class="carousel slide carousel-fade hero-slider-shell" data-bs-ride="carousel" data-bs-interval="4200">
+            <div class="carousel-indicators hero-slider-indicators">
+              <button type="button" data-bs-target="#homeHeroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#homeHeroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#homeHeroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#homeHeroSlider" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+
+            <div class="carousel-inner hero-slider-inner">
+              <div class="carousel-item active">
+                <img src="assets/WhatsApp%20Image%202026-04-21%20at%209.42.59%20AM.jpeg" class="hero-slide-image" alt="BLINK digital city presence" />
+              </div>
+              <div class="carousel-item">
+                <img src="assets/WhatsApp%20Image%202026-04-21%20at%209.43.00%20AM.jpeg" class="hero-slide-image" alt="BLINK automation partner visual" />
+              </div>
+              <div class="carousel-item">
+                <img src="assets/WhatsApp%20Image%202026-04-21%20at%209.43.01%20AM.jpeg" class="hero-slide-image" alt="BLINK smart interface showcase" />
+              </div>
+              <div class="carousel-item">
+                <img src="assets/Screenshot%202026-04-17%20213459.png" class="hero-slide-image" alt="BLINK service wall showcase" />
+              </div>
+            </div>
+          </div>
         </div>
         <div class="hero-overlay"></div>
         <div class="container position-relative">
@@ -735,6 +755,7 @@
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
+
 
 
 
