@@ -142,6 +142,7 @@ section {
   font-weight: 700;
   padding: 10px 14px;
   border-radius: 999px;
+  transition: color 0.28s ease, background-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
 }
 
 .navmenu a:hover,
@@ -149,6 +150,7 @@ section {
   color: #fff;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 24px rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
 }
 
 .cta-btn,
@@ -298,8 +300,8 @@ section {
   min-height: 58vh;
   padding-top: 120px;
   background:
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.18), transparent 28%),
-    radial-gradient(circle at left center, rgba(79, 70, 229, 0.22), transparent 30%),
+    radial-gradient(circle at top right, rgba(24, 164, 207, 0.2), transparent 28%),
+    radial-gradient(circle at left center, rgba(239, 178, 93, 0.14), transparent 30%),
     var(--dark-bg);
 }
 
@@ -316,7 +318,9 @@ section {
 }
 
 .hero-overlay {
-  background: linear-gradient(120deg, rgba(11, 17, 32, 0.93), rgba(11, 17, 32, 0.62));
+  background:
+    linear-gradient(120deg, rgba(8, 17, 31, 0.95), rgba(8, 17, 31, 0.66)),
+    radial-gradient(circle at top left, rgba(239, 178, 93, 0.12), transparent 28%);
 }
 
 .hero .container,
@@ -329,20 +333,22 @@ section {
   display: inline-flex;
   padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 22px;
+  letter-spacing: 0.03em;
 }
 
 .hero h1,
 .page-hero h1 {
   color: #fff;
   font-size: clamp(2.4rem, 4vw, 4.6rem);
-  line-height: 1.2;
+  line-height: 1.12;
   margin-bottom: 18px;
+  letter-spacing: -0.03em;
 }
 
 .hero-copy,
@@ -362,11 +368,14 @@ section {
 
 
 .hero-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(239, 178, 93, 0.1), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 30px;
   padding: 36px;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 26px 62px rgba(6, 14, 27, 0.22);
 }
 
 .hero-logo-image {
@@ -418,7 +427,8 @@ section {
 }
 
 .section-title {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
+  max-width: 860px;
 }
 
 .section-title span,
@@ -437,6 +447,7 @@ section {
 .cta-panel h2 {
   font-size: clamp(1.8rem, 3vw, 3rem);
   line-height: 1.35;
+  letter-spacing: -0.02em;
 }
 
 .feature-panel,
@@ -451,6 +462,7 @@ section {
   height: 100%;
   position: relative;
   overflow: hidden;
+  transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
 }
 
 .feature-panel,
@@ -458,6 +470,17 @@ section {
 .detail-card,
 .contact-card {
   padding: 28px;
+}
+
+.feature-panel:hover,
+.value-card:hover,
+.detail-card:hover,
+.contact-card:hover,
+.contact-box:hover,
+.content-block:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 70px rgba(12, 26, 49, 0.11);
+  border-color: rgba(18, 61, 112, 0.12);
 }
 
 .feature-panel i,
@@ -511,11 +534,13 @@ section {
   color: var(--accent-color);
   font-size: 13px;
   font-weight: 800;
+  letter-spacing: 0.03em;
 }
 
 .service-brief-body h3 {
   margin: 10px 0 12px;
   font-size: 24px;
+  line-height: 1.32;
 }
 
 .blog-shell {
