@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="خدمة التمويلات من BLINK تمنحك قراءة بصرية قوية لملفك التمويلي، مع تقييم موسع لعدد كبير من البنوك والجهات التمويلية في الإمارات وخطوة تقديم أكثر احترافية."
+    />
+    <title>التمويلات | BLINK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        const lang = localStorage.getItem("site-language") || "ar";
+        const value = lang === "en" ? "/ar/en" : "/ar/ar";
+        document.documentElement.lang = lang;
+        document.cookie = "googtrans=" + value + "; path=/";
+        if (window.location.hostname && window.location.hostname.includes(".")) {
+          document.cookie = "googtrans=" + value + "; path=/; domain=." + window.location.hostname;
+        }
+      })();
+    </script>
+  </head>
+  <body data-page="services">
+    <header id="header" class="site-header fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="assets/blink-automation-partner-logo.jpeg" alt="BLINK Logo" class="header-logo-image" />
+          <div class="site-name-wrap">
+            <span class="site-name">BLINK</span>
+            <span class="site-slogan">Digital Growth, Built Smart</span>
+          </div>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html" data-nav="home">الرئيسية</a></li>
+            <li><a href="about.html" data-nav="about">من نحن</a></li>
+            <li><a href="portfolio.html" data-nav="portfolio">سابقة أعمالنا</a></li>
+            <li><a href="services.html" data-nav="services">الخدمات</a></li>
+            <li><a href="blog.html" data-nav="blog">المقالات</a></li>
+            <li><a href="contact.html" data-nav="contact">تواصل معنا</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+        <div class="header-actions">
+          <div class="language-switch" aria-label="Language switcher">
+            <button class="lang-btn active" type="button" data-lang-target="ar">AR</button>
+            <button class="lang-btn" type="button" data-lang-target="en">EN</button>
+          </div>
+          <a class="cta-btn" href="contact.html">احجز استشارة</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main service-page">
+      <section class="page-hero section dark-background finance-hero">
+        <div class="finance-orb finance-orb-one"></div>
+        <div class="finance-orb finance-orb-two"></div>
+        <div class="container position-relative">
+          <div class="finance-hero-shell reveal">
+            <div class="finance-hero-copy">
+              <span class="hero-badge">حلول التمويل</span>
+              <h1>نحوّل ملفك التمويلي إلى عرض بصري مقنع يوضح موقفك بوضوح ويقربك من الجهة الأنسب في الإمارات.</h1>
+              <p>
+                بدل التقديم العشوائي، ستجد هنا قراءة تحليلية غنية بالمؤشرات والرسوم ونسب الملاءمة عبر
+                شريحة واسعة من البنوك المعروفة في الإمارات، حتى ترى موقفك بصورة أوضح وأكثر ثقة قبل
+                الانتقال إلى خطوة التقديم.
+              </p>
+              <div class="page-hero-actions">
+                <a href="#finance-analyzer" class="btn-main">ابدأ تحليل ملفك</a>
+                <a href="https://amwali.tech" target="_blank" rel="noreferrer" class="btn-outline-light">زيارة منصة Amwali</a>
+              </div>
+            </div>
+
+            <div class="finance-hero-card reveal reveal-left">
+              <span class="portfolio-eyebrow">ملف أقوى. قراءة أوضح. تقديم أذكى.</span>
+              <h3>تحليل تمويلي ممتد على أكثر من 20 بنكًا وجهة مع مؤشرات بصرية واضحة وسريعة القراءة</h3>
+              <p>
+                النتيجة لا تكتفي بنصوص وصفية، بل تعرض درجة الجاهزية، قوة الدخل، ضغط الالتزامات، مستوى
+                الاستقرار الوظيفي، وأقرب الجهات التي قد تناسب الملف في المرحلة الأولى.
+              </p>
+              <div class="finance-hero-stats">
+                <div>
+                  <strong>20+</strong>
+                  <span>بنكًا وجهة ممولة في التقييم</span>
+                </div>
+                <div>
+                  <strong>360°</strong>
+                  <span>قراءة بصرية للملف من كل زاوية</span>
+                </div>
+                <div>
+                  <strong>فوري</strong>
+                  <span>نتيجة تتشكل مباشرة من بياناتك</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="finance-bank-slider-section">
+        <div class="container">
+          <div class="finance-bank-marquee reveal" aria-label="شعارات البنوك">
+            <div class="finance-bank-marquee-inner">
+              <div class="finance-bank-track">
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/emirates-nbd.png" alt="Emirates NBD logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/adcb.ico" alt="ADCB logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/fab.webp" alt="FAB logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/mashreq.svg" alt="Mashreq logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/cbd.ico" alt="Commercial Bank of Dubai logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/rakbank.ico" alt="RAKBANK logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/nbf.svg" alt="National Bank of Fujairah logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/uab.ico" alt="United Arab Bank logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/dib.jpg" alt="Dubai Islamic Bank logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/emirates-islamic.jpg" alt="Emirates Islamic logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/adib.png" alt="ADIB logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/ajman-bank.ico" alt="Ajman Bank logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/banks/sib.svg" alt="Sharjah Islamic Bank logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/banks/al-hilal.svg" alt="Al Hilal Bank logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/cbi.ico" alt="CBI logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/bank-of-sharjah.png" alt="Bank of Sharjah logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/nbq.png" alt="NBQ logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/arab-bank.png" alt="Arab Bank logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/hsbc.jpg" alt="HSBC UAE logo" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/standard-chartered.png" alt="Standard Chartered logo" /></div>
+              </div>
+              <div class="finance-bank-track" aria-hidden="true">
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/emirates-nbd.png" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/adcb.ico" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/fab.webp" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/mashreq.svg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/cbd.ico" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/rakbank.ico" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/nbf.svg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/uab.ico" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/dib.jpg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/emirates-islamic.jpg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/adib.png" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/ajman-bank.ico" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/banks/sib.svg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/banks/al-hilal.svg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/cbi.ico" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/bank-of-sharjah.png" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/nbq.png" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/arab-bank.png" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/hsbc.jpg" alt="" /></div>
+                <div class="finance-bank-logo-card"><img src="assets/bank-icons/standard-chartered.png" alt="" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-6 reveal">
+              <div class="content-block">
+                <span>عن الخدمة</span>
+                <h2>هنا تبدأ برؤية أوضح لفرصك التمويلية بدل التخمين والتقديم غير الموجّه.</h2>
+                <p>
+                  ستشاهد ملفك بصورة أكثر وضوحًا، مع مؤشرات سهلة القراءة وترتيب أقرب للجهات التي قد تناسب
+                  حالتك، حتى تعرف من أين تبدأ وكيف تتقدم بثقة أكبر.
+                </p>
+                <p>
+                  كل عنصر في هذه الصفحة صُمم ليمنحك وضوحًا أعلى، مؤشرات أسهل، ورسومًا تجعل وضعك المالي
+                  ظاهرًا أمامك بشكل سريع وجذاب، لا مجرد أرقام متناثرة.
+                </p>
+                <ul class="check-list">
+                  <li>قراءة تمويلية بصرية تختصر لك الصورة بسرعة ووضوح.</li>
+                  <li>تقييم واسع على أكثر من 20 بنكًا وجهة ممولة داخل السوق الإماراتي.</li>
+                  <li>خطوة تالية أكثر احترافية عندما تكون جاهزًا للتقديم.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-6 reveal">
+              <div class="finance-benefit-grid">
+                <article class="finance-benefit-card">
+                  <i class="bi bi-bar-chart-line"></i>
+                  <h3>تحليل غني بالمؤشرات</h3>
+                  <p>رسوم ومقاييس توضح لك وضعك المالي بدل الفقرات الطويلة والمجردة.</p>
+                </article>
+                <article class="finance-benefit-card">
+                  <i class="bi bi-shield-check"></i>
+                  <h3>إحساس أعلى بالثقة</h3>
+                  <p>النتيجة تظهر بصورة منظمة ومحترفة تمنحك انطباعًا أقوى ووضوحًا أكبر.</p>
+                </article>
+                <article class="finance-benefit-card">
+                  <i class="bi bi-bank"></i>
+                  <h3>تغطية أكبر للسوق</h3>
+                  <p>بدل الاكتفاء بعدد محدود، ترى تقييمًا أوسع على شريحة كبيرة من البنوك في الإمارات.</p>
+                </article>
+                <article class="finance-benefit-card">
+                  <i class="bi bi-rocket-takeoff"></i>
+                  <h3>خطوة تالية جاهزة</h3>
+                  <p>عندما تكون الجاهزية مرتفعة، يصبح الانتقال إلى التقديم الاحترافي أكثر وضوحًا وسلاسة.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft finance-story-section">
+        <div class="container">
+          <div class="section-title reveal">
+            <span>صورتك التمويلية</span>
+            <h2>كلما كانت الصورة أوضح، أصبحت فرصك في اختيار الجهة الأنسب أقرب وأكثر ثقة.</h2>
+          </div>
+          <div class="finance-story-grid">
+            <article class="finance-story-card reveal">
+              <div class="finance-story-visual finance-story-visual-income">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <h3>قوة الدخل الشهري</h3>
+              <p>كلما كان دخلك أوضح وأقرب إلى حدود البنوك المستهدفة، ظهرت فرصك بصورة أقوى منذ البداية.</p>
+            </article>
+            <article class="finance-story-card reveal">
+              <div class="finance-story-visual finance-story-visual-debt">
+                <span class="finance-ring"><em></em></span>
+              </div>
+              <h3>عبء الالتزامات</h3>
+              <p>كلما كانت الالتزامات أكثر توازنًا مع الدخل، بدت الصورة المالية أكثر راحة وجاذبية.</p>
+            </article>
+            <article class="finance-story-card reveal">
+              <div class="finance-story-visual finance-story-visual-job">
+                <span></span><span></span><span></span>
+              </div>
+              <h3>الاستقرار الوظيفي</h3>
+              <p>الاستقرار الوظيفي يعطي ملفك ثباتًا أكبر ويزيد من وضوحك أمام عدد واسع من الجهات التمويلية.</p>
+            </article>
+            <article class="finance-story-card reveal">
+              <div class="finance-story-visual finance-story-visual-fit">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <h3>الجهة الأنسب للملف</h3>
+              <p>ليست كل جهة مناسبة لنفس الحالة، لذلك ترى أمامك الخيارات الأقرب لك بصورة مرتبة وواضحة.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="finance-analyzer" class="section finance-analyzer-section">
+        <div class="container">
+          <div class="section-title reveal">
+            <span>محلل الجاهزية التمويلية</span>
+            <h2>أدخل البيانات الأساسية وسنحوّلها إلى لوحة غنية بالمؤشرات والجهات الأقرب لملفك.</h2>
+          </div>
+          <div class="row g-4 align-items-start">
+            <div class="col-lg-8 reveal">
+              <form id="finance-analyzer-form" class="finance-analyzer-form finance-analyzer-form-rich">
+                <div class="finance-form-head">
+                  <div>
+                    <span class="portfolio-eyebrow">بيانات الملف</span>
+                    <h3>كل حقل هنا يساعد على بناء قراءة أكثر دقة وإقناعًا</h3>
+                  </div>
+                  <div class="finance-form-progress">
+                    <span>تحليل متعدد المحاور</span>
+                    <strong>الدخل • الاستقرار • الالتزامات • الملاءمة</strong>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="finance-field-label">الاسم الكامل</label>
+                    <input type="text" class="form-control" name="full_name" placeholder="الاسم كما يظهر في المستندات" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">رقم الهاتف</label>
+                    <input type="tel" class="form-control" name="phone" placeholder="05X XXX XXXX" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">البريد الإلكتروني</label>
+                    <input type="email" class="form-control" name="email" placeholder="name@example.com" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">الجنسية</label>
+                    <input type="text" class="form-control" name="nationality" placeholder="الجنسية" required />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">صفة المتقدم</label>
+                    <select class="form-control" name="residency" required>
+                      <option value="">اختر</option>
+                      <option value="resident">مقيم في الإمارات</option>
+                      <option value="national">مواطن إماراتي</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">العمر</label>
+                    <input type="number" class="form-control" name="age" placeholder="العمر" min="18" max="70" required />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">الحالة الاجتماعية</label>
+                    <select class="form-control" name="marital_status" required>
+                      <option value="">اختر</option>
+                      <option value="single">أعزب / عزباء</option>
+                      <option value="married">متزوج / متزوجة</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">الراتب الشهري</label>
+                    <input type="number" class="form-control" name="salary" placeholder="AED" min="0" step="100" required />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">الالتزامات الشهرية</label>
+                    <input type="number" class="form-control" name="liabilities" placeholder="AED" min="0" step="100" value="0" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">مبلغ التمويل المطلوب</label>
+                    <input type="number" class="form-control" name="loan_amount" placeholder="AED" min="10000" step="1000" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">نوع جهة العمل</label>
+                    <select class="form-control" name="employer_type" required>
+                      <option value="">اختر</option>
+                      <option value="government">حكومية / شبه حكومية</option>
+                      <option value="listed">شركة خاصة معتمدة / مدرجة</option>
+                      <option value="unlisted">شركة خاصة غير مدرجة</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">اسم جهة العمل</label>
+                    <input type="text" class="form-control" name="employer_name" placeholder="اسم الشركة أو المؤسسة" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">مدة الخدمة الحالية</label>
+                    <input type="number" class="form-control" name="service_months" placeholder="بالأشهر" min="0" required />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">تحويل الراتب</label>
+                    <select class="form-control" name="salary_transfer" required>
+                      <option value="">اختر</option>
+                      <option value="yes">نعم</option>
+                      <option value="no">لا</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">نوع الدخل</label>
+                    <select class="form-control" name="employment_status" required>
+                      <option value="">اختر</option>
+                      <option value="salaried">راتب ثابت</option>
+                      <option value="self_employed">عمل حر / دخل متغير</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">هل لديك قروض قائمة؟</label>
+                    <select class="form-control" name="existing_loans" required>
+                      <option value="">اختر</option>
+                      <option value="yes">نعم</option>
+                      <option value="no">لا</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">عدد بطاقات الائتمان</label>
+                    <input type="number" class="form-control" name="credit_cards" placeholder="0" min="0" max="10" value="0" />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="finance-field-label">عدد المعالين</label>
+                    <input type="number" class="form-control" name="dependents" placeholder="0" min="0" max="12" value="0" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">الغرض من التمويل</label>
+                    <select class="form-control" name="loan_purpose" required>
+                      <option value="">اختر</option>
+                      <option value="personal">تمويل شخصي</option>
+                      <option value="home">سكن / تجهيز منزل</option>
+                      <option value="business">سيولة أو توسع أعمال</option>
+                      <option value="debt">إعادة ترتيب التزامات</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="finance-field-label">هل لديك حساب بنكي داخل الإمارات؟</label>
+                    <select class="form-control" name="bank_account" required>
+                      <option value="">اختر</option>
+                      <option value="yes">نعم</option>
+                      <option value="no">لا</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="finance-field-label">ملاحظات إضافية</label>
+                    <textarea class="form-control" name="notes" rows="4" placeholder="أي تفاصيل إضافية تساعد على فهم الغرض من التمويل أو وضع الملف الحالي"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit">اعرض تحليلي التمويلي الآن</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-4 reveal">
+              <div class="finance-side-note finance-side-note-rich">
+                <span class="portfolio-eyebrow">ما الذي ستراه هنا؟</span>
+                <h3>قراءة مركزة تمنحك ثقة أكبر وتقربك من القرار</h3>
+                <p>
+                  النتيجة مصممة لتكون مفهومة وأنيقة وسريعة القراءة. ستجد مؤشرات واضحة، توزيعًا بصريًا
+                  للنقاط، وقائمة مرتبة لأقرب البنوك بدل نتائج مبعثرة.
+                </p>
+                <div class="finance-side-mini-stats">
+                  <div><strong>20+</strong><span>جهة في التقييم</span></div>
+                  <div><strong>4</strong><span>رسوم أساسية للنتيجة</span></div>
+                  <div><strong>Top 6</strong><span>ترتيب بصري سريع</span></div>
+                </div>
+                <ul class="portfolio-points finance-points">
+                  <li>لوحة تحليل بصري واضحة لا تختبئ خلف نصوص عامة.</li>
+                  <li>تفسير مرتب لنقاط القوة والنقاط التي تحتاج تحسينًا.</li>
+                  <li>انتقال أكثر سلاسة إلى خطوة التقديم عندما تكون جاهزًا.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="finance-analysis-result" class="finance-analysis-result reveal" aria-live="polite">
+            <div class="finance-result-shell finance-demo-result">
+              <div class="finance-insight-grid">
+                <article class="finance-chart-card">
+                  <span class="portfolio-eyebrow">مثال على شكل النتيجة</span>
+                  <div class="finance-gauge-wrap">
+                    <div class="finance-gauge-stack">
+                      <svg class="finance-gauge" viewBox="0 0 120 120" style="--gauge-value:78">
+                        <defs>
+                          <linearGradient id="financeGaugeGradientDemo" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#12a4d9"></stop>
+                            <stop offset="55%" stop-color="#0d83c9"></stop>
+                            <stop offset="100%" stop-color="#ffb545"></stop>
+                          </linearGradient>
+                        </defs>
+                        <circle class="finance-gauge-track" cx="60" cy="60" r="54"></circle>
+                        <circle class="finance-gauge-fill" cx="60" cy="60" r="54" style="stroke:url(#financeGaugeGradientDemo);stroke-dasharray:339.292;stroke-dashoffset:74.645"></circle>
+                      </svg>
+                      <div class="finance-gauge-score">
+                        <strong>78%</strong>
+                        <span>جاهزية قوية</span>
+                      </div>
+                    </div>
+                    <div class="finance-metric-list">
+                      <div class="finance-metric-row">
+                        <span>قوة الدخل</span>
+                        <div class="finance-bar-track"><div class="finance-bar-fill" style="width:82%"></div></div>
+                        <strong>82%</strong>
+                      </div>
+                      <div class="finance-metric-row">
+                        <span>راحة الالتزامات</span>
+                        <div class="finance-bar-track"><div class="finance-bar-fill" style="width:69%"></div></div>
+                        <strong>69%</strong>
+                      </div>
+                      <div class="finance-metric-row">
+                        <span>الاستقرار</span>
+                        <div class="finance-bar-track"><div class="finance-bar-fill" style="width:76%"></div></div>
+                        <strong>76%</strong>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="finance-chart-card">
+                  <span class="portfolio-eyebrow">صورة النتيجة قبل الإدخال</span>
+                  <h3>هكذا سيظهر لك شكل التحليل النهائي</h3>
+                  <p class="finance-chart-caption">هذا نموذج جاهز يوضح لك شكل لوحة النتائج التي ستظهر بعد إدخال بياناتك الفعلية.</p>
+                  <div class="finance-distribution-grid">
+                    <div><strong>18,500</strong><span>دخل شهري</span></div>
+                    <div><strong>12,100</strong><span>سيولة بعد الالتزامات</span></div>
+                    <div><strong>34%</strong><span>عبء الالتزامات</span></div>
+                    <div><strong>9</strong><span>جهات قوية</span></div>
+                    <div><strong>6</strong><span>جهات جيدة</span></div>
+                    <div><strong>4</strong><span>أفضل 4 خيارات</span></div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="finance-summary-grid">
+                <article class="finance-summary-card">
+                  <span class="portfolio-eyebrow">مثال لملخص الملف</span>
+                  <div class="finance-summary-score">
+                    <strong class="finance-score-value">78%</strong>
+                    <span class="finance-score-label">جاهزية قوية</span>
+                  </div>
+                  <h3>سيظهر لك هنا ملخص سريع عن قوة ملفك الحالي ونقاطه الأوضح</h3>
+                  <p>في هذا النموذج تشاهد شكل الملخص الذي يختصر لك وضعك الحالي بصورة سريعة وواضحة.</p>
+                  <div class="finance-summary-meta">
+                    <span>الراتب: 18,500 AED</span>
+                    <span>الالتزامات: 6,400 AED</span>
+                    <span>العبء: 34%</span>
+                    <span>مبلغ الطلب: 220,000 AED</span>
+                  </div>
+                </article>
+
+                <article class="finance-summary-card">
+                  <span class="portfolio-eyebrow">مثال للملاحظات</span>
+                  <h3>هذه أمثلة على التوصيات التي قد تظهر لك في النتيجة</h3>
+                  <ul class="finance-tip-list">
+                    <li>دخلك الحالي يمنحك مساحة جيدة أمام عدد كبير من الجهات.</li>
+                    <li>نسبة الالتزامات الحالية مريحة نسبيًا وتدعم الصورة الأولية لملفك.</li>
+                    <li>تحويل الراتب وجهة العمل المعتمدة يرفعان قوة ظهورك في التقييم.</li>
+                  </ul>
+                </article>
+              </div>
+
+              <article class="finance-chart-card">
+                <span class="portfolio-eyebrow">مثال لأفضل الجهات</span>
+                <h3>هذا الرسم يوضح كيف ستظهر أفضل الجهات في لوحة نتيجتك</h3>
+                <ul class="finance-bank-chart-bars">
+                  <li><span>Emirates NBD</span><div class="finance-bar-track"><div class="finance-bar-fill" style="width:88%"></div></div><strong>88%</strong></li>
+                  <li><span>ADCB</span><div class="finance-bar-track"><div class="finance-bar-fill" style="width:85%"></div></div><strong>85%</strong></li>
+                  <li><span>FAB</span><div class="finance-bar-track"><div class="finance-bar-fill" style="width:82%"></div></div><strong>82%</strong></li>
+                  <li><span>Mashreq</span><div class="finance-bar-track"><div class="finance-bar-fill" style="width:79%"></div></div><strong>79%</strong></li>
+                  <li><span>Dubai Islamic</span><div class="finance-bar-track"><div class="finance-bar-fill" style="width:77%"></div></div><strong>77%</strong></li>
+                  <li><span>RAKBANK</span><div class="finance-bar-track"><div class="finance-bar-fill" style="width:74%"></div></div><strong>74%</strong></li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="cta-panel reveal">
+            <div>
+              <span>المرحلة التالية</span>
+              <h2>عندما يظهر ملفك بصورة قوية، يصبح التقديم الاحترافي عبر Amwali أوضح في الصياغة وأقوى في ترتيب المستندات ومسار المتابعة.</h2>
+            </div>
+            <div class="cta-panel-actions">
+              <a href="https://amwali.tech" target="_blank" rel="noreferrer" class="btn-main">ابدأ التقديم عبر Amwali</a>
+              <a href="contact.html" class="btn-outline-dark">تحدث مع فريقنا أولًا</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="container footer-top">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6">
+            <a href="index.html" class="logo footer-logo d-flex align-items-center">
+              <img src="assets/blink-automation-partner-logo.jpeg" alt="BLINK footer logo" class="footer-logo-image" />
+            </a>
+            <p class="footer-text">نحوّل الملف التمويلي إلى تجربة أوضح وأكثر إقناعًا بصريًا قبل أن يتحول إلى خطوة تقديم فعلية.</p>
+          </div>
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>الصفحات</h4>
+            <ul>
+              <li><a href="index.html">الرئيسية</a></li>
+              <li><a href="services.html">الخدمات</a></li>
+              <li><a href="blog.html">المقالات</a></li>
+              <li><a href="contact.html">تواصل معنا</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>خدمات مرتبطة</h4>
+            <ul>
+              <li><a href="sales-development.html">تطوير المبيعات</a></li>
+              <li><a href="customer-service.html">خدمة العملاء</a></li>
+              <li><a href="digital-operations.html">التشغيل الرقمي</a></li>
+              <li><a href="ai-solutions.html">الذكاء الاصطناعي</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>التواصل</h4>
+            <p><a href="mailto:blinkagency4u@gmail.com">blinkagency4u@gmail.com</a></p>
+            <p><a href="https://www.instagram.com/blinkdigital4u/" target="_blank" rel="noreferrer">instagram.com/blinkdigital4u</a></p>
+            <p>Dubai, UAE</p>
+          </div>
+        </div>
+      </div>
+      <div class="container copyright text-center">
+        <p>جميع الحقوق محفوظة © BLINK</p>
+      </div>
+    </footer>
+
+    <div id="google_translate_element"></div>
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+      <i class="bi bi-arrow-up-short"></i>
+    </a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+</html>

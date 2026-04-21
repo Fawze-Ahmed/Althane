@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="180" viewBox="0 0 520 180">
+  <rect width="520" height="180" rx="28" fill="#ffffff"/>
+  <rect x="26" y="36" width="110" height="110" rx="26" fill="#0f8b8d"/>
+  <text x="81" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#ffffff">AD</text>
+  <text x="166" y="88" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#133a5f">ADCB</text>
+  <text x="166" y="122" font-family="Arial, sans-serif" font-size="18" fill="#4f647d">Commercial Bank</text>
+</svg>

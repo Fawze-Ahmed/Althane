@@ -23,6 +23,50 @@ const cryptoWidget = document.getElementById("crypto-widget");
 const techFeedGrid = document.getElementById("tech-feed-grid");
 const techFeedStatus = document.getElementById("tech-feed-status");
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
+const chatbotKnowledgeBase = [
+  {
+    id: "services",
+    label: "ما خدمات BLINK؟",
+    keywords: ["الخدمات", "خدمات", "تقدمون", "بتشتغلوا", "شو تقدمون", "شو خدماتكم"],
+    answer:
+      "BLINK تقدم منظومة خدمات متكاملة تشمل تطوير المواقع والمنصات، تطبيقات الهاتف، الأمن السيبراني، التداول الخوارزمي، التصميم والهوية، التشغيل الرقمي، التسويق، تطوير المبيعات، خدمة العملاء، الذكاء الاصطناعي، الاستشارات القانونية، والتمويلات.",
+  },
+  {
+    id: "choose-service",
+    label: "كيف أختار الخدمة؟",
+    keywords: ["اختار", "اختيار", "مناسب", "انسب", "محتاج", "أبدأ منين", "ابدا منين"],
+    answer:
+      "إذا كان هدفك الظهور والاقتناع فنبدأ عادة بالموقع والهوية والتسويق. وإذا كان هدفك التنظيم والسرعة فنركز على التشغيل والأتمتة وخدمة العملاء. وإذا كان هدفك النمو بثقة فنمزج بين أكثر من خدمة حسب المرحلة والميزانية.",
+  },
+  {
+    id: "web-apps",
+    label: "هل تنفذون مواقع وتطبيقات؟",
+    keywords: ["موقع", "مواقع", "متجر", "متاجر", "تطبيق", "تطبيقات", "ويب", "woocommerce", "wordpress"],
+    answer:
+      "نعم، ننفذ مواقع تعريفية، متاجر إلكترونية، منصات خدمية، ولوحات تشغيل، وكذلك تطبيقات هاتف iOS وAndroid عندما تكون التجربة المتكررة على الموبايل جزءًا أساسيًا من الخدمة.",
+  },
+  {
+    id: "ai-automation",
+    label: "هل لديكم ذكاء اصطناعي وأتمتة؟",
+    keywords: ["ذكاء", "اصطناعي", "ai", "أتمتة", "اوتوميشن", "automation", "bot", "روبوت"],
+    answer:
+      "نعم، نوفر حلول ذكاء اصطناعي وأتمتة عملية مثل المساعدين الذكيين، تسريع الردود، تحليل البيانات، وربط الخطوات التشغيلية لتقليل الجهد اليومي ورفع سرعة الأداء.",
+  },
+  {
+    id: "pricing",
+    label: "كيف أطلب عرض سعر؟",
+    keywords: ["سعر", "تكلفة", "عرض سعر", "quote", "ميزانية", "budget", "سعركم"],
+    answer:
+      "أفضل طريقة لعرض سعر دقيق هي إرسال اسمك، نوع النشاط، الخدمة المطلوبة، وأهم تفاصيل المشروع. بعد ذلك نراجع الطلب ونرتب المسار الأنسب حسب الاحتياج الفعلي وليس باسم الخدمة فقط.",
+  },
+  {
+    id: "timeline",
+    label: "كم يستغرق التنفيذ؟",
+    keywords: ["مدة", "وقت", "كم يستغرق", "التنفيذ", "موعد", "timeline"],
+    answer:
+      "مدة التنفيذ تختلف حسب نوع المشروع وحجم المحتوى وعدد التكاملات المطلوبة. المشاريع البسيطة أسرع، بينما المنصات والتجارب المتكاملة تحتاج مرحلة تحليل وتنفيذ أوسع. يمكننا تقدير المدة بدقة بعد استلام التفاصيل.",
+  },
+];
 const socialLinks = [
   { icon: "bi-instagram", label: "Instagram", href: "https://www.instagram.com/blinkdigital4u/" },
   { icon: "bi-linkedin", label: "LinkedIn", href: "#" },
@@ -157,6 +201,17 @@ function setLanguage(lang) {
   }, 500);
 }
 
+function refreshDynamicTranslations() {
+  const savedLang = getSavedLanguage();
+  if (savedLang !== "en") return;
+
+  window.setTimeout(() => {
+    applyGoogleTranslate("en");
+    document.body.classList.add("translated-ltr");
+    hideGoogleTranslateArtifacts();
+  }, 200);
+}
+
 function initLanguageSwitcher() {
   const savedLang = getSavedLanguage();
   syncLanguageState(savedLang);
@@ -271,6 +326,184 @@ function initArticleModal() {
       closeModal();
     }
   });
+}
+
+function normalizeArabicText(value) {
+  return (value || "")
+    .toLowerCase()
+    .replace(/[أإآا]/g, "ا")
+    .replace(/[ة]/g, "ه")
+    .replace(/[ى]/g, "ي")
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getChatbotReply(message) {
+  const normalized = normalizeArabicText(message);
+  if (!normalized) {
+    return "اكتب سؤالك باختصار، وسأرشدك إلى الخدمة أو الخطوة الأنسب.";
+  }
+
+  const match = chatbotKnowledgeBase.find((item) =>
+    item.keywords.some((keyword) => normalized.includes(normalizeArabicText(keyword))),
+  );
+
+  if (match) return match.answer;
+
+  return "أستطيع مساعدتك في فهم خدمات BLINK، اختيار المسار المناسب، أو توجيهك إلى طلب عرض سعر. إذا كان سؤالك يحتاج متابعة من الفريق، استخدم خيار التواصل مع أحد مسؤولي الشركة داخل نفس النافذة.";
+}
+
+function initChatAssistant() {
+  if (!document.body || document.querySelector(".chatbot-floating")) return;
+
+  const widget = document.createElement("div");
+  widget.className = "chatbot-floating";
+  widget.innerHTML = `
+    <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-label="مساعد BLINK الذكي">
+      <span class="chatbot-toggle-ring"></span>
+      <span class="chatbot-toggle-core">
+        <i class="bi bi-robot"></i>
+        <span class="chatbot-toggle-spark chatbot-toggle-spark-one"></span>
+        <span class="chatbot-toggle-spark chatbot-toggle-spark-two"></span>
+        <span class="chatbot-toggle-spark chatbot-toggle-spark-three"></span>
+      </span>
+    </button>
+    <div id="chatbot-panel" class="chatbot-panel" aria-hidden="true">
+      <div class="chatbot-header">
+        <div>
+          <span class="chatbot-badge">BLINK Assistant</span>
+          <strong>كيف أقدر أساعدك؟</strong>
+          <p>مساعد سريع مبني على خدمات BLINK وطريقة عملنا.</p>
+        </div>
+        <button id="chatbot-close" class="chatbot-close" type="button" aria-label="إغلاق المساعد">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <div id="chatbot-conversation" class="chatbot-body">
+        <div class="chatbot-message bot">
+          <p>مرحبًا، أقدر أجاوب على أكثر الأسئلة شيوعًا عن الخدمات، التنفيذ، واختيار المسار المناسب.</p>
+        </div>
+      </div>
+
+      <div class="chatbot-quick-actions">
+        ${chatbotKnowledgeBase
+          .slice(0, 6)
+          .map((item) => `<button class="chatbot-chip" type="button" data-chatbot-prompt="${item.label}">${item.label}</button>`)
+          .join("")}
+      </div>
+
+      <form id="chatbot-input-form" class="chatbot-input-wrap">
+        <input id="chatbot-input" type="text" placeholder="اكتب سؤالك هنا" autocomplete="off" />
+        <button type="submit" aria-label="إرسال السؤال"><i class="bi bi-arrow-up-left"></i></button>
+      </form>
+
+      <div class="chatbot-escalation">
+        <button id="chatbot-escalate" class="chatbot-escalate-btn" type="button">التواصل مع أحد مسؤولي الشركة</button>
+      </div>
+
+      <div id="chatbot-lead-panel" class="chatbot-lead-panel">
+        <div class="chatbot-lead-head">
+          <strong>أرسل طلبك مباشرة</strong>
+          <p>املأ النموذج المختصر وسيصل إلى نفس بريد التواصل المعتمد لدى BLINK.</p>
+        </div>
+        <form id="chatbot-lead-form" class="chatbot-lead-form" action="https://formsubmit.co/blinkagency4u@gmail.com" method="POST" target="chatbot-submit-frame">
+          <input type="hidden" name="_subject" value="طلب جديد من مساعد BLINK الذكي" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <div class="row g-2">
+            <div class="col-12"><input class="form-control" type="text" name="name" placeholder="الاسم الكامل" required /></div>
+            <div class="col-md-6"><input class="form-control" type="tel" name="phone" placeholder="رقم الهاتف" required /></div>
+            <div class="col-md-6"><input class="form-control" type="email" name="email" placeholder="البريد الإلكتروني" required /></div>
+            <div class="col-md-6"><input class="form-control" type="text" name="company" placeholder="اسم الشركة" /></div>
+            <div class="col-md-6"><input class="form-control" type="text" name="service" placeholder="الخدمة المطلوبة" /></div>
+            <div class="col-12"><textarea class="form-control" name="message" rows="4" placeholder="اكتب نبذة مختصرة عن طلبك" required></textarea></div>
+            <div class="col-12"><button class="chatbot-form-submit" type="submit">إرسال الطلب</button></div>
+          </div>
+        </form>
+        <p id="chatbot-form-status" class="chatbot-form-status"></p>
+        <iframe name="chatbot-submit-frame" title="chatbot submit frame" class="chatbot-submit-frame"></iframe>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(widget);
+
+  const panel = widget.querySelector("#chatbot-panel");
+  const toggle = widget.querySelector("#chatbot-toggle");
+  const close = widget.querySelector("#chatbot-close");
+  const conversation = widget.querySelector("#chatbot-conversation");
+  const inputForm = widget.querySelector("#chatbot-input-form");
+  const input = widget.querySelector("#chatbot-input");
+  const escalateButton = widget.querySelector("#chatbot-escalate");
+  const leadPanel = widget.querySelector("#chatbot-lead-panel");
+  const leadForm = widget.querySelector("#chatbot-lead-form");
+  const formStatus = widget.querySelector("#chatbot-form-status");
+
+  const appendMessage = (type, text) => {
+    if (!conversation || !text) return;
+    const bubble = document.createElement("div");
+    bubble.className = `chatbot-message ${type}`;
+    bubble.innerHTML = `<p>${text}</p>`;
+    conversation.appendChild(bubble);
+    conversation.scrollTop = conversation.scrollHeight;
+    refreshDynamicTranslations();
+  };
+
+  const togglePanel = (open) => {
+    const shouldOpen = typeof open === "boolean" ? open : !panel?.classList.contains("open");
+    panel?.classList.toggle("open", shouldOpen);
+    panel?.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+    if (shouldOpen) {
+      window.setTimeout(() => input?.focus(), 120);
+    }
+  };
+
+  toggle?.addEventListener("click", () => togglePanel());
+  close?.addEventListener("click", () => togglePanel(false));
+
+  document.addEventListener("click", (event) => {
+    if (!panel || !toggle) return;
+    if (panel.contains(event.target) || toggle.contains(event.target)) return;
+    panel.classList.remove("open");
+    panel.setAttribute("aria-hidden", "true");
+  });
+
+  widget.querySelectorAll("[data-chatbot-prompt]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const prompt = button.getAttribute("data-chatbot-prompt");
+      appendMessage("user", prompt);
+      window.setTimeout(() => appendMessage("bot", getChatbotReply(prompt)), 180);
+    });
+  });
+
+  inputForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const question = input?.value.trim();
+    if (!question) return;
+    appendMessage("user", question);
+    input.value = "";
+    window.setTimeout(() => appendMessage("bot", getChatbotReply(question)), 220);
+  });
+
+  escalateButton?.addEventListener("click", () => {
+    leadPanel?.classList.toggle("open");
+    if (leadPanel?.classList.contains("open")) {
+      formStatus.textContent = "";
+      leadPanel.querySelector("input[name='name']")?.focus();
+    }
+  });
+
+  leadForm?.addEventListener("submit", () => {
+    if (!formStatus) return;
+    formStatus.textContent = "تم إرسال الطلب. سيصل إلى فريق BLINK على نفس بريد التواصل وسنراجع التفاصيل بأسرع وقت.";
+    window.setTimeout(() => {
+      leadForm.reset();
+    }, 400);
+  });
+
+  refreshDynamicTranslations();
 }
 
 function initSocialHub() {
@@ -457,10 +690,12 @@ async function initWeatherWidget() {
         <li><span>الصغرى اليوم</span><strong>${Math.round(todayMin ?? 0)}°</strong></li>
         <li><span>سرعة الرياح</span><strong>${Math.round(current.wind_speed_10m ?? 0)} كم/س</strong></li>
       </ul>
-      <p class="insight-footnote">المصدر: Open-Meteo</p>
+      <p class="insight-footnote">Open-Meteo</p>
     `;
+    refreshDynamicTranslations();
   } catch (error) {
     renderInsightError(weatherWidget, "الطقس", "تعذر جلب حالة الطقس الآن. حاول تحديث الصفحة بعد قليل.");
+    refreshDynamicTranslations();
   }
 }
 
@@ -468,8 +703,9 @@ async function initCurrencyWidget() {
   if (!currencyWidget) return;
 
   try {
-    const data = await fetchJson("https://api.frankfurter.dev/v1/latest?base=USD&symbols=AED,EUR,SAR,EGP");
+    const data = await fetchJson("https://open.er-api.com/v6/latest/USD");
     const rates = data.rates || {};
+    const updatedAt = formatDateArabic(data.time_last_update_utc || "");
 
     currencyWidget.innerHTML = `
       <div class="insight-card-head">
@@ -483,10 +719,12 @@ async function initCurrencyWidget() {
         <li><span>جنيه مصري</span><strong>${rates.EGP?.toFixed(2) ?? "--"} EGP</strong></li>
         <li><span>يورو</span><strong>${rates.EUR?.toFixed(2) ?? "--"} EUR</strong></li>
       </ul>
-      <p class="insight-footnote">آخر تحديث: ${formatDateArabic(data.date)} | المصدر: Frankfurter</p>
+      <p class="insight-footnote">${updatedAt ? `${updatedAt} | ` : ""}ExchangeRate-API</p>
     `;
+    refreshDynamicTranslations();
   } catch (error) {
     renderInsightError(currencyWidget, "العملات", "تعذر تحميل أسعار العملات الآن. حاول مرة أخرى لاحقًا.");
+    refreshDynamicTranslations();
   }
 }
 
@@ -521,10 +759,12 @@ async function initCryptoWidget() {
           })
           .join("")}
       </ul>
-      <p class="insight-footnote">المصدر: CoinPaprika</p>
+      <p class="insight-footnote">CoinPaprika</p>
     `;
+    refreshDynamicTranslations();
   } catch (error) {
     renderInsightError(cryptoWidget, "الكريبتو", "تعذر تحميل أسعار العملات المشفرة الآن. حاول لاحقًا.");
+    refreshDynamicTranslations();
   }
 }
 
@@ -542,6 +782,7 @@ function renderTechFeedError() {
       </article>
     </div>
   `;
+  refreshDynamicTranslations();
 }
 
 async function initTechFeed() {
@@ -551,7 +792,7 @@ async function initTechFeed() {
     const articles = await fetchJson("https://dev.to/api/articles?tag=technology&per_page=6");
     const safeArticles = Array.isArray(articles) ? articles.slice(0, 6) : [];
 
-    techFeedStatus.textContent = "يتم تحديث هذا القسم مباشرة من DEV API بالمقالات التقنية العامة.";
+    techFeedStatus.textContent = "يتم تحديث هذا القسم تلقائيًا بأحدث المقالات التقنية.";
 
     techFeedGrid.innerHTML = safeArticles
       .map((article) => {
@@ -579,6 +820,7 @@ async function initTechFeed() {
         `;
       })
       .join("");
+    refreshDynamicTranslations();
   } catch (error) {
     renderTechFeedError();
   }
@@ -589,6 +831,348 @@ function initLiveDataSections() {
   initCurrencyWidget();
   initCryptoWidget();
   initTechFeed();
+}
+
+function formatFinanceCurrency(value) {
+  return new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 0,
+  }).format(Math.max(0, Number(value) || 0));
+}
+
+function getFinanceReadinessLabel(score) {
+  if (score >= 86) return "جاهزية قوية جدًا";
+  if (score >= 74) return "جاهزية قوية";
+  if (score >= 62) return "جاهزية جيدة";
+  if (score >= 50) return "جاهزية متوسطة";
+  return "تحتاج تجهيزًا أكبر";
+}
+
+function initFinanceAnalyzer() {
+  const form = document.getElementById("finance-analyzer-form");
+  const result = document.getElementById("finance-analysis-result");
+  if (!form || !result) return;
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const gaugeCircumference = 339.292;
+  const banks = [
+    { name: "Emirates NBD", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "ADCB", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 64, salaryTransfer: "preferred" },
+    { name: "FAB", type: "تقليدي", minSalary: 7000, unlistedSalary: 9000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Mashreq", type: "تقليدي", minSalary: 5000, unlistedSalary: 10000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "required" },
+    { name: "Commercial Bank of Dubai", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "RAKBANK", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "National Bank of Fujairah", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "optional" },
+    { name: "United Arab Bank", type: "تقليدي", minSalary: 5000, unlistedSalary: 8000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Commercial Bank International", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "optional" },
+    { name: "Bank of Sharjah", type: "تقليدي", minSalary: 7000, unlistedSalary: 9000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "optional" },
+    { name: "National Bank of Umm Al Qaiwain", type: "تقليدي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "optional" },
+    { name: "Arab Bank", type: "تقليدي", minSalary: 8000, unlistedSalary: 10000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "HSBC UAE", type: "دولي", minSalary: 15000, unlistedSalary: 18000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "required" },
+    { name: "Standard Chartered UAE", type: "دولي", minSalary: 8000, unlistedSalary: 10000, minServiceMonths: 6, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Dubai Islamic Bank", type: "إسلامي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Emirates Islamic", type: "إسلامي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Abu Dhabi Islamic Bank", type: "إسلامي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Ajman Bank", type: "إسلامي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Sharjah Islamic Bank", type: "إسلامي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+    { name: "Al Hilal Bank", type: "إسلامي", minSalary: 5000, unlistedSalary: 7000, minServiceMonths: 3, ageMin: 21, ageMax: 60, salaryTransfer: "preferred" },
+  ];
+
+  const evaluateBank = (bank, data) => {
+    const salaryTarget = data.employerType === "unlisted" ? bank.unlistedSalary : bank.minSalary;
+    let score = 82;
+    const reasons = [];
+
+    if (data.salary < salaryTarget) {
+      score -= clamp(Math.round((salaryTarget - data.salary) / 400), 14, 40);
+      reasons.push(`الراتب الحالي أقل من المستوى الأقرب لهذا البنك وهو ${formatFinanceCurrency(salaryTarget)} AED تقريبًا.`);
+    } else {
+      reasons.push(`الدخل الحالي مناسب مبدئيًا لحدود هذا البنك عند مستوى ${formatFinanceCurrency(salaryTarget)} AED أو أعلى.`);
+      if (data.salary >= salaryTarget * 1.35) score += 5;
+    }
+
+    if (data.age < bank.ageMin || data.age > bank.ageMax) {
+      score -= 30;
+      reasons.push(`العمر خارج النطاق المعتاد لهذه الفئة التمويلية (${bank.ageMin}-${bank.ageMax}).`);
+    } else {
+      reasons.push("العمر ضمن النطاق المقبول مبدئيًا لهذا النوع من المنتجات.");
+    }
+
+    if (data.serviceMonths < bank.minServiceMonths) {
+      score -= clamp((bank.minServiceMonths - data.serviceMonths) * 3, 8, 24);
+      reasons.push(`مدة الخدمة الحالية أقل من المستوى المريح لهذا البنك (${bank.minServiceMonths} أشهر أو أكثر).`);
+    } else {
+      reasons.push("الاستقرار الوظيفي الحالي يدعم الملف في القراءة الأولية.");
+    }
+
+    if (data.dbr > 0.5) {
+      score -= clamp(Math.round((data.dbr - 0.5) * 90), 14, 30);
+      reasons.push("عبء الالتزامات مرتفع مقارنة بالدخل وقد يضغط على القرار الأولي.");
+    } else {
+      reasons.push("عبء الالتزامات ما زال ضمن النطاق الأقرب للراحة الائتمانية.");
+      if (data.dbr <= 0.32) score += 4;
+    }
+
+    if (bank.salaryTransfer === "required" && data.salaryTransfer !== "yes") {
+      score -= 18;
+      reasons.push("هذا البنك يفضل بصورة أكبر الملفات القابلة لتحويل الراتب.");
+    } else if (bank.salaryTransfer === "preferred" && data.salaryTransfer !== "yes") {
+      score -= 10;
+      reasons.push("تحويل الراتب هنا يعطي الملف راحة أكبر في التقييم.");
+    } else if (data.salaryTransfer === "yes") {
+      score += 4;
+    }
+
+    if (data.employerType === "government") {
+      score += 5;
+    } else if (data.employerType === "listed") {
+      score += 3;
+    } else {
+      score -= 6;
+      reasons.push("جهة العمل غير المدرجة تجعل ترتيب المستندات وإثبات الدخل أكثر أهمية.");
+    }
+
+    if (data.employmentStatus === "self_employed") {
+      score -= 12;
+      reasons.push("الدخل المتغير يحتاج دعمًا أكبر بالمستندات وكشف الحركة البنكية.");
+    }
+
+    if (data.existingLoans === "yes") {
+      score -= 6;
+    }
+
+    if (data.creditCards >= 4) {
+      score -= 5;
+      reasons.push("تعدد بطاقات الائتمان قد يرفع حساسية التقييم الأولي.");
+    }
+
+    if (data.bankAccount === "yes") score += 2;
+    if (data.loanPurpose === "debt") score -= 3;
+    if (data.loanPurpose === "business" && bank.type === "دولي") score += 3;
+    if (data.residency === "national") score += 2;
+    if (data.maritalStatus === "married" && data.dependents >= 4) score -= 4;
+
+    return {
+      ...bank,
+      score: clamp(Math.round(score), 18, 96),
+      reasons: reasons.slice(0, 4),
+    };
+  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const data = {
+      fullName: formData.get("full_name")?.toString().trim() || "العميل",
+      nationality: formData.get("nationality")?.toString().trim() || "",
+      residency: formData.get("residency"),
+      age: Number(formData.get("age") || 0),
+      maritalStatus: formData.get("marital_status"),
+      salary: Number(formData.get("salary") || 0),
+      liabilities: Number(formData.get("liabilities") || 0),
+      employerType: formData.get("employer_type"),
+      employerName: formData.get("employer_name")?.toString().trim() || "",
+      serviceMonths: Number(formData.get("service_months") || 0),
+      salaryTransfer: formData.get("salary_transfer"),
+      employmentStatus: formData.get("employment_status"),
+      existingLoans: formData.get("existing_loans"),
+      creditCards: Number(formData.get("credit_cards") || 0),
+      dependents: Number(formData.get("dependents") || 0),
+      loanPurpose: formData.get("loan_purpose"),
+      bankAccount: formData.get("bank_account"),
+      loanAmount: Number(formData.get("loan_amount") || 0),
+    };
+
+    const dbr = data.salary > 0 ? data.liabilities / data.salary : 1;
+    data.dbr = dbr;
+
+    const evaluatedBanks = banks.map((bank) => evaluateBank(bank, data)).sort((a, b) => b.score - a.score);
+    const topSix = evaluatedBanks.slice(0, 6);
+
+    const overallScore = Math.round(
+      evaluatedBanks.reduce((sum, bank) => sum + bank.score, 0) / evaluatedBanks.length,
+    );
+    const upliftScore = Math.min(97, overallScore + (overallScore >= 78 ? 7 : overallScore >= 62 ? 10 : 14));
+    const dbrPercent = Math.round(dbr * 100);
+    const salaryStrength = clamp(Math.round((data.salary / 12000) * 100), 8, 100);
+    const stabilityStrength = clamp(Math.round((data.serviceMonths / 12) * 100) + (data.salaryTransfer === "yes" ? 8 : 0), 10, 100);
+    const debtComfort = clamp(100 - dbrPercent, 5, 100);
+    const disposableIncome = Math.max(0, data.salary - data.liabilities);
+    const strongMatches = evaluatedBanks.filter((bank) => bank.score >= 75).length;
+    const mediumMatches = evaluatedBanks.filter((bank) => bank.score >= 60 && bank.score < 75).length;
+    const highIncomeFit = evaluatedBanks.filter((bank) => bank.score >= 80).length;
+
+    const readinessTips = [];
+    if (data.salary < 7000) readinessTips.push("رفع الدخل الموثق أو اختيار شريحة بنوك أدق سيجعل الصورة أقوى وأكثر تناسقًا.");
+    if (data.serviceMonths < 6) readinessTips.push("تحسن مدة الخدمة الحالية سيزيد من استقرار الملف ويقوي ترتيبه أمام عدد أكبر من البنوك.");
+    if (dbr > 0.5) readinessTips.push("خفض الالتزامات أو إعادة هيكلتها سيظهر القدرة التمويلية بصورة أهدأ وأكثر إقناعًا.");
+    if (data.salaryTransfer === "no") readinessTips.push("إتاحة تحويل الراتب تظل من أقوى العناصر التي ترفع راحة عدد كبير من جهات التمويل.");
+    if (data.employerType === "unlisted") readinessTips.push("تجهيز خطاب راتب واضح وكشف حساب قوي ومستندات جهة العمل يصبح أكثر أهمية مع الشركات غير المدرجة.");
+    if (data.employmentStatus === "self_employed") readinessTips.push("إبراز انتظام الدخل عبر كشوف الحركة البنكية والملخصات المالية سيمنح الملف ثقة أكبر.");
+    if (!readinessTips.length) readinessTips.push("ملفك يبدو متماسكًا مبدئيًا، والتركيز الآن يجب أن يكون على جودة التقديم وترتيب المستندات وطريقة عرض الطلب.");
+
+    result.innerHTML = `
+      <div class="finance-result-shell">
+        <div class="finance-insight-grid">
+          <article class="finance-chart-card">
+            <span class="portfolio-eyebrow">مؤشر الجاهزية</span>
+            <div class="finance-gauge-wrap">
+              <div class="finance-gauge-stack">
+                <svg class="finance-gauge" viewBox="0 0 120 120" style="--gauge-value:${overallScore}">
+                  <defs>
+                    <linearGradient id="financeGaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#12a4d9"></stop>
+                      <stop offset="55%" stop-color="#0d83c9"></stop>
+                      <stop offset="100%" stop-color="#ffb545"></stop>
+                    </linearGradient>
+                  </defs>
+                  <circle class="finance-gauge-track" cx="60" cy="60" r="54"></circle>
+                  <circle class="finance-gauge-fill" cx="60" cy="60" r="54" style="stroke-dasharray:${gaugeCircumference};stroke-dashoffset:${gaugeCircumference - (gaugeCircumference * overallScore) / 100}"></circle>
+                </svg>
+                <div class="finance-gauge-score">
+                  <strong>${overallScore}%</strong>
+                  <span>${getFinanceReadinessLabel(overallScore)}</span>
+                </div>
+              </div>
+              <div class="finance-metric-list">
+                <div class="finance-metric-row">
+                  <span>قوة الدخل</span>
+                  <div class="finance-bar-track"><div class="finance-bar-fill" style="width:${salaryStrength}%"></div></div>
+                  <strong>${salaryStrength}%</strong>
+                </div>
+                <div class="finance-metric-row">
+                  <span>راحة الالتزامات</span>
+                  <div class="finance-bar-track"><div class="finance-bar-fill ${dbrPercent > 50 ? "is-risk" : ""}" style="width:${dbrPercent > 50 ? dbrPercent : debtComfort}%"></div></div>
+                  <strong>${debtComfort}%</strong>
+                </div>
+                <div class="finance-metric-row">
+                  <span>الاستقرار</span>
+                  <div class="finance-bar-track"><div class="finance-bar-fill" style="width:${stabilityStrength}%"></div></div>
+                  <strong>${stabilityStrength}%</strong>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="finance-chart-card">
+            <span class="portfolio-eyebrow">مؤشرات الملف</span>
+            <h3>${data.fullName}، هذه صورة أولية لملفك الحالي</h3>
+            <p class="finance-chart-caption">القراءة التالية مصممة لتقريب القرار للعميل وتوضيح أقرب الجهات لملفه بشكل بصري سريع وواضح.</p>
+            <div class="finance-distribution-grid">
+              <div>
+                <strong>${formatFinanceCurrency(data.salary)}</strong>
+                <span>دخل شهري موثق</span>
+              </div>
+              <div>
+                <strong>${formatFinanceCurrency(disposableIncome)}</strong>
+                <span>سيولة شهرية بعد الالتزامات</span>
+              </div>
+              <div>
+                <strong>${dbrPercent}%</strong>
+                <span>نسبة الالتزامات من الراتب</span>
+              </div>
+              <div>
+                <strong>${strongMatches}</strong>
+                <span>جهات بملاءمة قوية</span>
+              </div>
+              <div>
+                <strong>${mediumMatches}</strong>
+                <span>جهات بملاءمة جيدة</span>
+              </div>
+              <div>
+                <strong>${highIncomeFit}</strong>
+                <span>خيارات عالية التوافق</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="finance-summary-grid">
+          <article class="finance-summary-card">
+            <span class="portfolio-eyebrow">ملخص الجاهزية</span>
+            <div class="finance-summary-score"><strong class="finance-score-value">${overallScore}%</strong><span class="finance-score-label">${getFinanceReadinessLabel(overallScore)}</span></div>
+            <h3>الملف يبدو ${overallScore >= 74 ? "قويًا" : overallScore >= 62 ? "واعدًا" : "قابلاً للتحسين"} ضمن القراءة الأولية الحالية</h3>
+            <p>أقوى نقطة في الملف الآن هي ${salaryStrength >= stabilityStrength && salaryStrength >= debtComfort ? "قوة الدخل مقارنة بعدد كبير من الجهات" : stabilityStrength >= debtComfort ? "الاستقرار الوظيفي وترتيب عناصر الملف" : "مساحة الحركة المتاحة بعد الالتزامات الشهرية"}.</p>
+            <div class="finance-summary-meta">
+              <span>الراتب: ${formatFinanceCurrency(data.salary)} AED</span>
+              <span>الالتزامات: ${formatFinanceCurrency(data.liabilities)} AED</span>
+              <span>عبء الالتزامات: ${dbrPercent}%</span>
+              <span>مبلغ الطلب: ${formatFinanceCurrency(data.loanAmount)} AED</span>
+            </div>
+          </article>
+          <article class="finance-summary-card">
+            <span class="portfolio-eyebrow">أين نرفع الملف؟</span>
+            <h3>أهم التحسينات التي ستقوي موقفك أمام البنوك</h3>
+            <ul class="finance-tip-list">
+              ${readinessTips.map((tip) => `<li>${tip}</li>`).join("")}
+            </ul>
+          </article>
+        </div>
+
+        <article class="finance-chart-card">
+          <span class="portfolio-eyebrow">أقرب 6 جهات الآن</span>
+          <h3>هذا الرسم يوضح البنوك الأعلى ملاءمة لملفك في المرحلة الحالية</h3>
+          <ul class="finance-bank-chart-bars">
+            ${topSix
+              .map(
+                (bank) => `
+                  <li>
+                    <span>${bank.name}</span>
+                    <div class="finance-bar-track"><div class="finance-bar-fill" style="width:${bank.score}%"></div></div>
+                    <strong>${bank.score}%</strong>
+                  </li>
+                `,
+              )
+              .join("")}
+          </ul>
+        </article>
+
+        <div>
+          <div class="section-title">
+            <span>جميع الجهات المقيمة</span>
+            <h2>أدناه ترتيب موسع للبنوك والجهات الممولة داخل التقييم الحالي، حتى يرى العميل السوق بصورة أشمل لا بصورة ضيقة.</h2>
+          </div>
+          <div class="finance-bank-grid">
+            ${evaluatedBanks
+              .map(
+                (bank) => `
+                  <article class="finance-bank-card">
+                    <div class="finance-bank-head">
+                      <div>
+                        <small>مؤشر ملاءمة أولي</small>
+                        <h3>${bank.name}</h3>
+                        <p>نوع الجهة: ${bank.type} ${bank.salaryTransfer === "required" ? "• يفضل تحويل راتب" : bank.salaryTransfer === "preferred" ? "• تحويل الراتب يعطي أفضلية" : "• مرونة أعلى في الهيكلة"}</p>
+                      </div>
+                      <div class="finance-score-pill">
+                        <strong>${bank.score}%</strong>
+                        <span>ملاءمة أولية</span>
+                      </div>
+                    </div>
+                    <ul class="finance-bank-points">
+                      ${bank.reasons.map((reason) => `<li>${reason}</li>`).join("")}
+                    </ul>
+                  </article>
+                `,
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <article class="finance-marketing-panel">
+          <span class="portfolio-eyebrow">جاهزية أعلى عند التقديم</span>
+          <h3>التقديم عبر Amwali قد يرفع قوة عرض الملف من ${overallScore}% إلى ${upliftScore}%</h3>
+          <p>
+            الفارق هنا لا يكون في الأرقام فقط، بل في طريقة ترتيب المستندات، صياغة الطلب، إبراز عناصر القوة،
+            واختيار الجهة الأنسب من البداية. كل ذلك يرفع وضوح الملف ويجعله أكثر احترافية عند التقديم.
+          </p>
+          <a href="https://amwali.tech" target="_blank" rel="noreferrer" class="btn-main">انقل ملفك إلى Amwali</a>
+        </article>
+      </div>
+    `;
+
+    refreshDynamicTranslations();
+    result.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 function initMagneticButtons() {
@@ -672,6 +1256,8 @@ window.addEventListener("load", () => {
   initHeroParallax();
   initSponsorMarquee();
   initLiveDataSections();
+  initFinanceAnalyzer();
+  initChatAssistant();
 });
 
 mobileNavToggle?.addEventListener("click", () => {
