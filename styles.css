@@ -620,30 +620,36 @@ section {
 .home-hero-section .row > [class*="col-"] {
   display: flex;
   align-items: center;
-}
-
-.home-hero-section .row > [class*="col-"]:first-child {
-  justify-content: flex-start;
-}
-
-.home-hero-section .row > [class*="col-"]:last-child {
   justify-content: center;
 }
 
 .home-hero-section .hero-copy-shell,
 .home-hero-section .hero-actions {
   width: 100%;
-  max-width: 640px;
+  max-width: 580px;
+  margin-inline: auto;
+}
+
+.home-hero-section .hero-copy-shell {
+  text-align: start;
+}
+
+.home-hero-section .hero-actions {
+  justify-content: flex-start;
 }
 
 .home-hero-section .hero-card {
-  width: min(100%, 600px);
+  width: min(100%, 560px);
   margin-inline: auto;
-  padding: 40px;
+  padding: 34px 32px;
 }
 
 .home-hero-section .hero-logo-image {
-  width: min(440px, 100%);
+  width: min(360px, 100%);
+}
+
+.home-hero-section .hero-card-summary {
+  text-align: center;
 }
 
 .home-hero-section .hero-stats {
@@ -5772,10 +5778,6 @@ html[lang="en"] .hero h1 {
     margin-top: -38px;
   }
 
-  .home-hero-section .row > [class*="col-"] {
-    justify-content: center;
-  }
-
   .home-hero-section .hero-copy-shell,
   .home-hero-section .hero-actions,
   .home-hero-section .hero-card {
@@ -5806,6 +5808,10 @@ html[lang="en"] .hero h1 {
   .home-hero-section .hero-card {
     padding: 24px 18px;
     border-radius: 24px;
+  }
+
+  .home-hero-section .hero-actions {
+    justify-content: flex-start;
   }
 
   .home-hero-section .hero-stats {
