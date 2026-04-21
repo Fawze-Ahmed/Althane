@@ -31,6 +31,35 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+html[lang="ar"] body,
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] textarea,
+html[lang="ar"] select {
+  font-family: "Cairo", sans-serif;
+}
+
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6,
+html[lang="ar"] .hero-badge,
+html[lang="ar"] .hero-dashboard-badge,
+html[lang="ar"] .hero-metric-pill {
+  letter-spacing: 0 !important;
+}
+
+html[lang="ar"] .home-hero-section h1,
+html[lang="ar"] .home-hero-section .hero-copy,
+html[lang="ar"] .hero-visual-stat strong,
+html[lang="ar"] .hero-chart-head strong,
+html[lang="ar"] .hero-card-points strong {
+  font-family: "Cairo", sans-serif;
+  font-kerning: normal;
+}
+
 .container,
 .container-sm,
 .container-md,
@@ -331,30 +360,30 @@ section {
 
 .hero-badge {
   display: inline-flex;
-  padding: 8px 16px;
+  padding: 10px 18px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 22px;
-  letter-spacing: 0.03em;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.98);
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: 0;
 }
 
 .hero h1,
 .page-hero h1 {
   color: #fff;
-  font-size: clamp(2.4rem, 4vw, 4.6rem);
-  line-height: 1.12;
-  margin-bottom: 18px;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.2rem, 4.2vw, 4rem);
+  line-height: 1.24;
+  margin-bottom: 20px;
+  letter-spacing: 0;
 }
 
 .hero-copy,
 .page-hero p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 17px;
   max-width: 720px;
 }
 
@@ -374,9 +403,9 @@ section {
 .hero-metric-pill {
   padding: 14px 18px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.98);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.7;
@@ -394,13 +423,13 @@ section {
 
 .hero-card {
   background:
-    radial-gradient(circle at top right, rgba(239, 178, 93, 0.1), transparent 26%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.14);
+    radial-gradient(circle at top right, rgba(239, 178, 93, 0.12), transparent 26%),
+    linear-gradient(180deg, rgba(9, 22, 40, 0.78), rgba(8, 17, 31, 0.62));
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 30px;
   padding: 36px;
   backdrop-filter: blur(16px);
-  box-shadow: 0 26px 62px rgba(6, 14, 27, 0.22);
+  box-shadow: 0 28px 70px rgba(6, 14, 27, 0.28);
 }
 
 .hero-visual-shell {
@@ -459,13 +488,13 @@ section {
 .hero-dashboard-badge {
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #fff;
+  color: rgba(255, 255, 255, 0.98);
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .hero-dashboard-grid {
@@ -478,9 +507,9 @@ section {
 .hero-visual-stat,
 .hero-chart-card,
 .hero-card-points div {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 22px 52px rgba(7, 15, 28, 0.16);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 22px 52px rgba(7, 15, 28, 0.2);
 }
 
 .hero-visual-stat {
@@ -494,11 +523,11 @@ section {
 
 .hero-visual-stat span {
   display: block;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
   font-weight: 800;
   margin-bottom: 10px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
 }
 
 .hero-visual-stat strong {
@@ -510,7 +539,7 @@ section {
 
 .hero-visual-stat p {
   margin: 10px 0 0;
-  color: rgba(255, 255, 255, 0.74);
+  color: rgba(255, 255, 255, 0.86);
   font-size: 13px;
   line-height: 1.8;
 }
@@ -535,7 +564,7 @@ section {
 }
 
 .hero-chart-head span {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 12px;
   font-weight: 700;
 }
@@ -553,7 +582,7 @@ section {
 }
 
 .hero-chart-row span {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 13px;
   font-weight: 700;
 }
@@ -594,7 +623,7 @@ section {
 
 .hero-card-points span {
   display: block;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 13px;
   line-height: 1.8;
 }
@@ -759,16 +788,17 @@ section {
 }
 
 .home-hero-section h1 {
-  font-size: clamp(2.8rem, 5.6vw, 5rem);
-  line-height: 0.98;
-  letter-spacing: -0.05em;
-  max-width: 720px;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.24;
+  letter-spacing: 0;
+  max-width: 680px;
 }
 
 .home-hero-section .hero-copy {
-  max-width: 650px;
-  font-size: 1.05rem;
-  line-height: 1.9;
+  max-width: 620px;
+  font-size: 1.02rem;
+  line-height: 1.95;
+  color: rgba(255, 255, 255, 0.94);
 }
 
 .home-hero-section .hero-actions {
@@ -3958,6 +3988,148 @@ section {
   font-weight: 800;
 }
 
+.portfolio-card-interactive {
+  cursor: pointer;
+}
+
+.portfolio-preview-btn {
+  margin-top: auto;
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid rgba(17, 40, 75, 0.1);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(18, 61, 112, 0.06), rgba(24, 164, 207, 0.08));
+  color: var(--heading-color);
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.portfolio-card:hover .portfolio-preview-btn,
+.portfolio-card-interactive:focus-visible .portfolio-preview-btn {
+  transform: translateY(-2px);
+  border-color: rgba(18, 61, 112, 0.18);
+  box-shadow: 0 16px 32px rgba(17, 40, 75, 0.12);
+}
+
+.portfolio-home-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.portfolio-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10030;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 17, 31, 0.54);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.portfolio-modal.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.portfolio-modal-dialog {
+  position: relative;
+  width: min(680px, calc(100vw - 24px));
+  max-height: min(84vh, 860px);
+  overflow-y: auto;
+  padding: 28px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 255, 0.98));
+  border: 1px solid rgba(17, 40, 75, 0.1);
+  box-shadow: 0 30px 80px rgba(9, 20, 38, 0.24);
+}
+
+.portfolio-modal-close {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(17, 40, 75, 0.06);
+  color: var(--heading-color);
+}
+
+.portfolio-modal-tag {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(18, 61, 112, 0.08);
+  color: var(--accent-color);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.portfolio-modal h3 {
+  font-size: clamp(1.55rem, 2vw, 2.2rem);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.portfolio-modal-summary,
+.portfolio-modal-section p {
+  color: var(--default-color);
+  line-height: 1.95;
+}
+
+.portfolio-modal-section {
+  margin-top: 18px;
+}
+
+.portfolio-modal-section strong {
+  display: block;
+  color: var(--heading-color);
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.portfolio-modal-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.portfolio-modal-list li {
+  position: relative;
+  padding-right: 18px;
+  color: var(--default-color);
+  line-height: 1.85;
+}
+
+.portfolio-modal-list li::before {
+  content: "";
+  position: absolute;
+  top: 11px;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+}
+
+.portfolio-modal-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
 .portfolio-card a::after {
   content: "\2190";
   font-size: 14px;
@@ -4378,7 +4550,7 @@ section {
 
   .chatbot-floating {
     left: 12px;
-    bottom: 142px;
+    bottom: 156px;
   }
 
   .chatbot-panel {
@@ -5919,6 +6091,10 @@ html[lang="en"] .hero h1 {
 }
 
 @media (max-width: 767.98px) {
+  .chatbot-floating {
+    bottom: 168px;
+  }
+
   .home-proof-band {
     margin-top: -26px;
     padding-bottom: 18px;
@@ -5935,6 +6111,7 @@ html[lang="en"] .hero h1 {
 
   .hero-metric-pill {
     width: 100%;
+    padding: 13px 14px;
   }
 
   .hero-dashboard-grid,
@@ -5945,6 +6122,16 @@ html[lang="en"] .hero h1 {
 
   .hero-chart-row {
     gap: 8px;
+  }
+
+  .home-hero-section h1 {
+    font-size: clamp(1.95rem, 9vw, 2.7rem);
+    line-height: 1.32;
+  }
+
+  .home-hero-section .hero-copy {
+    font-size: 0.98rem;
+    line-height: 1.9;
   }
 
   .home-proof-grid {
@@ -5959,6 +6146,16 @@ html[lang="en"] .hero h1 {
 
   .hero-card-points div {
     padding: 16px;
+  }
+
+  .portfolio-modal-dialog {
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .portfolio-modal-actions .btn-main,
+  .portfolio-modal-actions .btn-outline-dark {
+    width: 100%;
   }
 }
 
