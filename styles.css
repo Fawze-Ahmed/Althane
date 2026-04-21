@@ -6428,8 +6428,8 @@ html[lang="en"] .hero h1 {
   }
 
   .header-logo-image {
-    width: 154px;
-    height: 64px;
+    width: 132px;
+    height: 54px;
   }
 
   .header-actions {
@@ -6487,35 +6487,40 @@ html[lang="en"] .hero h1 {
   }
 
   .home-hero-slider-section {
-    min-height: 58vh;
+    min-height: 70vh;
     padding-top: 108px;
   }
 
   .home-hero-slider-section .row {
-    min-height: calc(58vh - 108px);
+    min-height: calc(70vh - 108px);
   }
 
   .home-hero-slider-section .hero-copy-shell-centered {
     max-width: 100%;
-    padding-inline: 6px;
+    padding-inline: 12px;
   }
 
   .home-hero-slider-section h1 {
     max-width: 100%;
-    font-size: clamp(1.42rem, 5.1vw, 1.82rem);
-    line-height: 1.62;
-    margin-bottom: 14px;
+    font-size: clamp(1.55rem, 5.6vw, 2rem);
+    line-height: 1.72;
+    margin-bottom: 18px;
   }
 
   .home-hero-slider-section .hero-actions {
-    width: 100%;
-    max-width: 360px;
+    width: min(100%, 320px);
     margin-inline: auto;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 10px;
   }
 
   .home-hero-slider-section .btn-main,
   .home-hero-slider-section .btn-outline-light {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 0;
     min-height: 46px;
     font-size: 14px;
     padding-inline: 12px;
@@ -6526,16 +6531,25 @@ html[lang="en"] .hero h1 {
   }
 
   .hero-slider-shell::before {
-    inset: 10px;
+    inset: 0;
     border-radius: 18px;
+    border-color: rgba(255, 255, 255, 0.08);
   }
 
   .hero-slide-image {
-    padding: 14px 12px 34px;
+    padding: 0;
+    object-fit: cover;
+    animation: none;
   }
 
   .hero-slider-indicators {
     bottom: 12px;
+  }
+
+  .home-hero-slider-section .hero-overlay {
+    background:
+      linear-gradient(180deg, rgba(5, 10, 22, 0.52), rgba(5, 10, 22, 0.82)),
+      linear-gradient(90deg, rgba(5, 10, 22, 0.18), rgba(5, 10, 22, 0.18));
   }
 
   .home-proof-band {
@@ -6665,26 +6679,26 @@ html[lang="en"] .hero h1 {
 
 @media (max-width: 575.98px) {
   .header-logo-image {
-    width: 142px;
-    height: 58px;
+    width: 122px;
+    height: 50px;
   }
 
   .home-hero-slider-section {
-    min-height: 54vh;
+    min-height: 66vh;
     padding-top: 104px;
   }
 
   .home-hero-slider-section .row {
-    min-height: calc(54vh - 104px);
+    min-height: calc(66vh - 104px);
   }
 
   .home-hero-slider-section h1 {
-    font-size: clamp(1.34rem, 5vw, 1.66rem);
-    line-height: 1.68;
+    font-size: clamp(1.48rem, 5.3vw, 1.8rem);
+    line-height: 1.76;
   }
 
   .home-hero-slider-section .hero-actions {
-    max-width: 100%;
+    width: min(100%, 300px);
   }
 
   .home-proof-item,
