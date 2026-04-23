@@ -6442,29 +6442,32 @@ html[lang="en"] .hero h1 {
 
 @media (max-width: 767.98px) {
   .site-header {
-    padding: 12px 0;
+    padding: 18px 0 10px;
+    background: rgba(3, 12, 18, 0.18);
+    backdrop-filter: blur(10px);
+    border-bottom: 0;
   }
 
   .site-header .container-fluid.container-xl {
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .logo {
-    flex: 0 1 auto;
+    flex: 0 1 132px;
     min-width: 0;
   }
 
   .header-logo-image {
-    width: 132px;
-    height: 54px;
+    width: 120px;
+    height: 48px;
   }
 
   .header-actions {
-    gap: 6px;
-    order: 2;
-    margin-inline-start: auto;
+    gap: 0;
+    flex: 0 0 auto;
+    margin-inline-start: 0;
   }
 
   .language-switch {
@@ -6472,7 +6475,13 @@ html[lang="en"] .hero h1 {
   }
 
   .header-actions .cta-btn {
-    display: none;
+    display: inline-flex;
+    min-height: 54px;
+    padding: 0 22px;
+    border: 2px solid rgba(255, 255, 255, 0.88);
+    background: transparent;
+    box-shadow: none;
+    font-size: 16px;
   }
 
   .lang-btn {
@@ -6482,11 +6491,11 @@ html[lang="en"] .hero h1 {
   }
 
   .navmenu {
-    order: 3;
+    flex: 0 0 auto;
   }
 
   .navmenu ul {
-    top: 72px;
+    top: 92px;
     right: 10px;
     left: 10px;
     max-height: calc(100vh - 96px);
@@ -6522,23 +6531,31 @@ html[lang="en"] .hero h1 {
     background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
   }
 
+  .header-actions .language-switch {
+    display: none;
+  }
+
   .navmenu a {
     font-size: 15px;
     padding: 11px 12px;
   }
 
   .mobile-nav-toggle {
-    width: 40px;
-    height: 40px;
+    width: 54px;
+    height: 54px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 38px;
+    padding: 0;
   }
 
   .main {
-    padding-top: 20px;
+    padding-top: 0;
   }
 
   .section,
@@ -6552,42 +6569,43 @@ html[lang="en"] .hero h1 {
   }
 
   .home-hero-slider-section {
-    min-height: 64svh;
-    padding-top: 102px;
-    padding-bottom: 48px;
+    min-height: 92svh;
+    padding-top: 144px;
+    padding-bottom: 88px;
   }
 
   .home-hero-slider-section .row {
-    min-height: calc(64svh - 102px);
+    min-height: calc(92svh - 144px);
   }
 
   .home-hero-slider-section .hero-copy-shell-centered {
     max-width: 100%;
-    padding-inline: 12px;
+    padding-inline: 4px;
   }
 
   .home-hero-slider-section h1 {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     margin-inline: auto;
     color: #fff;
-    font-size: clamp(1.18rem, 4.5vw, 1.42rem);
-    line-height: 1.5;
-    margin-bottom: 18px;
+    font-size: clamp(2.1rem, 8vw, 3rem);
+    line-height: 1.16;
+    margin-bottom: 20px;
     text-align: center;
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
     text-wrap: balance;
+    letter-spacing: 0;
   }
 
   .home-hero-slider-section .hero-actions {
-    width: min(100%, 304px);
+    width: min(100%, 100%);
     margin-inline: auto;
     justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 14px;
   }
 
   .home-hero-slider-section .btn-main,
@@ -6595,13 +6613,19 @@ html[lang="en"] .hero h1 {
     width: auto;
     min-width: 0;
     flex: 1 1 0;
-    min-height: 46px;
-    font-size: 14px;
-    padding-inline: 12px;
+    min-height: 60px;
+    font-size: 17px;
+    padding-inline: 18px;
+    border-radius: 12px;
+  }
+
+  .home-hero-slider-section .btn-outline-light {
+    border-width: 1.5px;
+    background: rgba(255, 255, 255, 0.02);
   }
 
   .hero-slider-shell {
-    border-radius: 24px;
+    border-radius: 0;
   }
 
   .hero-slider-shell::before {
@@ -6617,13 +6641,13 @@ html[lang="en"] .hero h1 {
   }
 
   .hero-slider-indicators {
-    bottom: 12px;
+    bottom: 18px;
   }
 
   .home-hero-slider-section .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(5, 10, 22, 0.52), rgba(5, 10, 22, 0.82)),
-      linear-gradient(90deg, rgba(5, 10, 22, 0.18), rgba(5, 10, 22, 0.18));
+      linear-gradient(180deg, rgba(3, 10, 14, 0.38), rgba(3, 10, 14, 0.78)),
+      linear-gradient(90deg, rgba(2, 18, 15, 0.28), rgba(2, 18, 15, 0.28));
   }
 
   .home-proof-band {
@@ -6780,33 +6804,42 @@ html[lang="en"] .hero h1 {
 
 @media (max-width: 575.98px) {
   .header-logo-image {
-    width: 122px;
-    height: 50px;
+    width: 112px;
+    height: 44px;
   }
 
   .home-hero-slider-section {
-    min-height: 60svh;
-    padding-top: 96px;
-    padding-bottom: 42px;
+    min-height: 90svh;
+    padding-top: 138px;
+    padding-bottom: 84px;
   }
 
   .home-hero-slider-section .row {
-    min-height: calc(60svh - 96px);
+    min-height: calc(90svh - 138px);
   }
 
   .home-hero-slider-section h1 {
-    max-width: 286px;
+    max-width: 100%;
     color: #fff;
-    font-size: clamp(1.02rem, 4.8vw, 1.2rem);
-    line-height: 1.48;
-    margin-bottom: 16px;
+    font-size: clamp(1.8rem, 7.7vw, 2.45rem);
+    line-height: 1.18;
+    margin-bottom: 18px;
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
+    text-wrap: balance;
   }
 
   .home-hero-slider-section .hero-actions {
-    width: min(100%, 294px);
+    width: 100%;
+    gap: 12px;
+  }
+
+  .home-hero-slider-section .btn-main,
+  .home-hero-slider-section .btn-outline-light {
+    min-height: 56px;
+    font-size: 15px;
+    padding-inline: 12px;
   }
 
   .home-proof-item,
