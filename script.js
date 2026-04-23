@@ -3,6 +3,9 @@ const scrollTopButton = document.getElementById("scroll-top");
 const navmenu = document.getElementById("navmenu");
 const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
 const navLinks = document.querySelectorAll(".navmenu a");
+const navmenuList = navmenu?.querySelector("ul");
+const headerActions = document.querySelector(".header-actions");
+const languageSwitch = document.querySelector(".language-switch");
 const pageName = document.body.dataset.page;
 const whatsappToggle = document.getElementById("whatsapp-toggle");
 const whatsappPanel = document.getElementById("whatsapp-panel");
@@ -23,6 +26,11 @@ const cryptoWidget = document.getElementById("crypto-widget");
 const techFeedGrid = document.getElementById("tech-feed-grid");
 const techFeedStatus = document.getElementById("tech-feed-status");
 const GOOGLE_TRANSLATE_COOKIE = "googtrans";
+const mobileLanguageItem = languageSwitch && navmenuList ? document.createElement("li") : null;
+
+if (mobileLanguageItem) {
+  mobileLanguageItem.className = "mobile-language-item";
+}
 const chatbotKnowledgeBase = [
   {
     id: "services",
@@ -277,6 +285,31 @@ function initLanguageSwitcher() {
       hideGoogleTranslateArtifacts();
     }
   }, 1000);
+}
+
+function syncMobileLanguagePlacement() {
+  if (!languageSwitch || !headerActions || !navmenuList || !mobileLanguageItem) return;
+
+  const isMobileViewport = window.matchMedia("(max-width: 767.98px)").matches;
+  const menuOpen = navmenu?.classList.contains("navmenu-active");
+
+  if (isMobileViewport && menuOpen) {
+    if (!mobileLanguageItem.contains(languageSwitch)) {
+      mobileLanguageItem.appendChild(languageSwitch);
+    }
+
+    if (navmenuList.firstElementChild !== mobileLanguageItem) {
+      navmenuList.prepend(mobileLanguageItem);
+    }
+
+    return;
+  }
+
+  mobileLanguageItem.remove();
+
+  if (!headerActions.contains(languageSwitch)) {
+    headerActions.prepend(languageSwitch);
+  }
 }
 
 function initBlogFilters() {
@@ -1489,6 +1522,7 @@ function initRevealMotion() {
 }
 
 window.addEventListener("scroll", updateScrolledState);
+window.addEventListener("resize", syncMobileLanguagePlacement);
 window.addEventListener("load", () => {
   updateScrolledState();
   removeDirectPhoneContacts();
@@ -1508,12 +1542,14 @@ window.addEventListener("load", () => {
   initLiveDataSections();
   initFinanceAnalyzer();
   initChatAssistantV2();
+  syncMobileLanguagePlacement();
 });
 
 mobileNavToggle?.addEventListener("click", () => {
   navmenu?.classList.toggle("navmenu-active");
   mobileNavToggle.classList.toggle("bi-list");
   mobileNavToggle.classList.toggle("bi-x");
+  syncMobileLanguagePlacement();
 });
 
 navLinks.forEach((link) => {
@@ -1521,6 +1557,7 @@ navLinks.forEach((link) => {
     navmenu?.classList.remove("navmenu-active");
     mobileNavToggle?.classList.add("bi-list");
     mobileNavToggle?.classList.remove("bi-x");
+    syncMobileLanguagePlacement();
   });
 });
 
