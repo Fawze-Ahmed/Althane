@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLINK Company Profile</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 14mm;
+      }
+
+      :root {
+        --ink: #102846;
+        --ink-soft: #4e5f79;
+        --accent: #1fb56a;
+        --accent-2: #3ab8ff;
+        --line: rgba(16, 40, 70, 0.12);
+        --paper: #ffffff;
+        --paper-soft: #f4f8fc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        color: var(--ink);
+        background: #eef3f8;
+      }
+
+      .profile {
+        width: 100%;
+      }
+
+      .page {
+        position: relative;
+        min-height: 265mm;
+        padding: 18mm 16mm;
+        background: var(--paper);
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .cover {
+        color: #fff;
+        background:
+          linear-gradient(135deg, rgba(4, 17, 39, 0.94), rgba(16, 40, 70, 0.86)),
+          url("assets/WhatsApp Image 2026-04-21 at 9.42.59 AM.jpeg") center/cover no-repeat;
+      }
+
+      .cover::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top left, rgba(58, 184, 255, 0.18), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(31, 181, 106, 0.16), transparent 24%);
+      }
+
+      .cover-inner,
+      .page-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 22mm;
+      }
+
+      .brand-row img {
+        width: 210px;
+        max-width: 48%;
+        object-fit: contain;
+      }
+
+      .cover-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .cover h1 {
+        max-width: 78%;
+        margin: 0 0 10px;
+        font-size: 34px;
+        line-height: 1.45;
+      }
+
+      .cover-lead {
+        max-width: 78%;
+        margin: 0 0 18px;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 16px;
+        line-height: 1.95;
+      }
+
+      .cover-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .cover-card {
+        padding: 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+      }
+
+      .cover-card strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+
+      .cover-card span {
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .contact-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22mm;
+      }
+
+      .contact-pill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 12px;
+        color: #fff;
+      }
+
+      .section-kicker {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 25px;
+        line-height: 1.45;
+      }
+
+      p {
+        margin: 0 0 12px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 2;
+      }
+
+      .intro-grid,
+      .value-grid,
+      .services-grid,
+      .projects-grid,
+      .contact-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .intro-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: start;
+      }
+
+      .value-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 18px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 18px;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 18px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        margin-top: 18px;
+      }
+
+      .card {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--paper-soft);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+
+      .card p:last-child {
+        margin-bottom: 0;
+      }
+
+      .metric-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .metric {
+        padding: 16px;
+        border-radius: 18px;
+        background: linear-gradient(180deg, #ffffff, #f7fbff);
+        border: 1px solid var(--line);
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 22px;
+      }
+
+      .metric span {
+        display: block;
+        color: var(--ink-soft);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .bullet-list {
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .bullet-list li {
+        position: relative;
+        padding-right: 18px;
+        margin-bottom: 10px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.9;
+      }
+
+      .bullet-list li::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 10px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      }
+
+      .service-card {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(180deg, #ffffff, #f7fbff);
+      }
+
+      .service-card::after {
+        content: "";
+        position: absolute;
+        inset: auto auto -35px -35px;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(58, 184, 255, 0.14), transparent 68%);
+      }
+
+      .service-label {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .project-card {
+        background: #fff;
+      }
+
+      .project-card h3 {
+        margin-bottom: 6px;
+      }
+
+      .project-tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(16, 40, 70, 0.06);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .footer-note {
+        position: absolute;
+        right: 16mm;
+        left: 16mm;
+        bottom: 10mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        color: var(--ink-soft);
+        font-size: 11px;
+      }
+
+      .brand-mini {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--ink);
+        font-weight: 800;
+      }
+
+      .brand-mini img {
+        width: 86px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="profile">
+      <section class="page cover">
+        <div class="cover-inner">
+          <div class="brand-row">
+            <img src="assets/blink-logo-transparent-ui-cropped.png" alt="BLINK logo" />
+            <span class="cover-chip">Company Profile 2026</span>
+          </div>
+
+          <h1>نبني حضورًا رقميًا أوضح، وتشغيلًا أذكى، وتجربة أكثر إقناعًا للشركات الطموحة.</h1>
+          <p class="cover-lead">
+            BLINK شركة تقنية وخدمات رقمية تعمل من دبي، وتقدّم حلولًا متكاملة تشمل تطوير المواقع والمنصات،
+            تطبيقات الهاتف، الأتمتة، الذكاء الاصطناعي، التسويق، التشغيل الرقمي، المبيعات، وخدمة العملاء ضمن رؤية واحدة
+            تربط بين الصورة والنتيجة.
+          </p>
+
+          <div class="cover-grid">
+            <div class="cover-card">
+              <strong>تنفيذ متكامل</strong>
+              <span>نربط بين التصميم، التقنية، التسويق، والتشغيل بدل تقديم خدمات منفصلة بلا أثر موحّد.</span>
+            </div>
+            <div class="cover-card">
+              <strong>عقلية تجارية</strong>
+              <span>لا نبني صفحات فقط، بل نصمم رحلة تساعد على رفع الثقة، تحسين التحويل، وتوضيح القيمة.</span>
+            </div>
+            <div class="cover-card">
+              <strong>مرونة في النمو</strong>
+              <span>نصمم أنظمة ومواقع قابلة للتطوير مستقبلًا بدون فوضى أو إعادة بناء من الصفر.</span>
+            </div>
+          </div>
+
+          <div class="contact-strip">
+            <span class="contact-pill">Dubai, UAE</span>
+            <span class="contact-pill">blinkagency4u@gmail.com</span>
+            <span class="contact-pill">instagram.com/blinkdigital4u</span>
+            <span class="contact-pill">+971 52 258 1055</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="page">
+        <div class="page-inner">
+          <span class="section-kicker">من نحن</span>
+          <h2>BLINK شريك تنفيذي يساعد الشركات على تحويل الفكرة إلى تجربة رقمية واضحة ومؤثرة.</h2>
+
+          <div class="intro-grid">
+            <div>
+              <p>
+                ننظر إلى كل مشروع بوصفه منظومة متكاملة: كيف تظهر العلامة؟ كيف يفهم العميل الخدمة؟ كيف يبدأ
+                التواصل؟ وكيف تتحول الزيارة إلى فرصة حقيقية؟ لهذا نعمل على الجمع بين الجمال البصري، وضوح الرسالة،
+                وسهولة الاستخدام، وكفاءة التشغيل داخل مسار واحد يخدم أهداف العمل.
+              </p>
+              <p>
+                خبرتنا تمتد عبر قطاعات متعددة مثل الخدمات القانونية، التمويل، التجارة الإلكترونية، التعليم،
+                الخدمات الصناعية، العقارات، والخدمات المهنية. هذا التنوع مكّننا من بناء فهم عملي لكيفية تصميم
+                الحلول المناسبة لطبيعة كل نشاط، وليس فقط تنفيذ واجهات عامة متشابهة.
+              </p>
+
+              <ul class="bullet-list">
+                <li>نعمل بعقلية تنفيذية تربط التقنية بأهداف العمل الفعلية.</li>
+                <li>نركز على وضوح الصورة، سرعة الوصول للمعلومة، وتجربة المستخدم في كل نقطة تواصل.</li>
+                <li>نبني حلولًا تساعد على النمو المستمر، لا مجرد انطلاقة شكلية قصيرة.</li>
+              </ul>
+            </div>
+
+            <div class="metric-stack">
+              <div class="metric">
+                <strong>360°</strong>
+                <span>رؤية متكاملة تجمع بين التقنية، النمو، التشغيل، وتجربة العميل.</span>
+              </div>
+              <div class="metric">
+                <strong>Multi-Sector</strong>
+                <span>خبرة في مشاريع تخدم قطاعات متنوعة داخل الخليج وخارجه.</span>
+              </div>
+              <div class="metric">
+                <strong>Execution First</strong>
+                <span>تركيز على التنفيذ العملي القابل للقياس، وليس التنظير فقط.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="value-grid">
+            <div class="card">
+              <h3>وضوح تجاري</h3>
+              <p>كل خدمة أو صفحة أو نظام يجب أن يخدم هدفًا واضحًا: صورة أفضل، تحويل أعلى، أو تشغيل أهدأ.</p>
+            </div>
+            <div class="card">
+              <h3>سرعة مدروسة</h3>
+              <p>نحب الإنجاز السريع، لكننا نفضّل السرعة التي تحافظ على الجودة وثبات البنية وقابلية التوسع.</p>
+            </div>
+            <div class="card">
+              <h3>احترافية موحدة</h3>
+              <p>نحافظ على حضور بصري ورسائلي متماسك يعكس الثقة في كل نقطة تواصل مع العميل.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>BLINK Company Profile</span>
+          <span>Page 2</span>
+        </div>
+      </section>
+
+      <section class="page">
+        <div class="page-inner">
+          <span class="section-kicker">خدماتنا</span>
+          <h2>حلول رقمية متكاملة تغطي رحلة النمو من الظهور إلى التشغيل ثم إلى رفع التحويل.</h2>
+
+          <div class="services-grid">
+            <div class="card service-card">
+              <span class="service-label">التطوير التقني</span>
+              <h3>تطوير المواقع والمنصات</h3>
+              <p>بناء مواقع تعريفية، مواقع خدمات، متاجر إلكترونية، ولوحات تحكم ومنصات مرنة قابلة للتوسع.</p>
+            </div>
+            <div class="card service-card">
+              <span class="service-label">تطبيقات الهاتف</span>
+              <h3>تجارب مهيأة للموبايل</h3>
+              <p>تطوير تطبيقات وتجارب استخدام mobile-first تدعم الاستخدام اليومي وتسهّل الوصول للخدمة.</p>
+            </div>
+            <div class="card service-card">
+              <span class="service-label">الأتمتة والذكاء الاصطناعي</span>
+              <h3>تشغيل أذكى ووقت أقل هدرًا</h3>
+              <p>أتمتة المهام، مساعدين ذكيين، وتحليلات تساعد على تسريع القرار ورفع كفاءة العمل.</p>
+            </div>
+            <div class="card service-card">
+              <span class="service-label">النمو الرقمي</span>
+              <h3>التسويق وتطوير المبيعات</h3>
+              <p>رسائل أوضح، صفحات أكثر إقناعًا، وحملات ومسارات بيع تدعم رفع التحويل وتحسين النتائج.</p>
+            </div>
+            <div class="card service-card">
+              <span class="service-label">التشغيل والإدارة</span>
+              <h3>التشغيل الرقمي وإدارة العملاء</h3>
+              <p>تنظيم الأدوات، ربط العمليات، وتحسين المتابعة الداخلية وتجربة العميل بعد التواصل.</p>
+            </div>
+            <div class="card service-card">
+              <span class="service-label">خدمات متخصصة</span>
+              <h3>الأمن السيبراني، التمويل، والاستشارات القانونية</h3>
+              <p>صفحات ومسارات متخصصة تدعم الأعمال الحساسة بثقة أعلى وعرض أوضح وواجهة أكثر احترافية.</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px" class="card">
+            <h3>كيف نعمل؟</h3>
+            <p>
+              نبدأ بفهم الواقع الحالي للشركة والتحدي الحقيقي خلف الطلب، ثم نعيد ترتيب الصورة: ما الذي يحتاجه السوق؟
+              ما الخطوة التي نريد من العميل أن يتخذها؟ وما النظام الذي يجعل النتيجة قابلة للاستمرار؟ هذه الطريقة
+              تجعل الحل النهائي أكثر دقة وقابلية للقياس.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Services Overview</span>
+          <span>Page 3</span>
+        </div>
+      </section>
+
+      <section class="page">
+        <div class="page-inner">
+          <span class="section-kicker">لماذا BLINK</span>
+          <h2>نحن لا نقدم خدمة منفصلة، بل نبني مسارًا متماسكًا يربط الصورة بالتشغيل والنتيجة.</h2>
+
+          <div class="value-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            <div class="card">
+              <h3>فهم أعمق للاحتياج</h3>
+              <p>قد يطلب العميل موقعًا جديدًا، بينما التحدي الحقيقي هو ضعف الرسالة أو بطء التحويل أو غياب الثقة. نحن نبدأ من أصل التحدي لا من شكله الظاهر فقط.</p>
+            </div>
+            <div class="card">
+              <h3>هوية ورسالة وتجربة</h3>
+              <p>نربط بين الشكل والمحتوى وسهولة الاستخدام حتى تبدو العلامة متماسكة في الموقع، الرسائل، الحملات، والمتابعة اليومية.</p>
+            </div>
+            <div class="card">
+              <h3>تجربة قابلة للتوسع</h3>
+              <p>نبني ما يمكن تطويره لاحقًا، ونراعي أن يبقى النظام مفيدًا بعد الإطلاق وليس مجرد واجهة جميلة عند البداية.</p>
+            </div>
+            <div class="card">
+              <h3>نتائج عملية</h3>
+              <p>المعيار الحقيقي لدينا هو وضوح أكبر، تفاعل أعلى، وقت أقل ضائع، أو قدرة أفضل على إدارة رحلة العميل واتخاذ القرار.</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px" class="card">
+            <h3>القطاعات التي خدمناها</h3>
+            <p>
+              التجارة الإلكترونية، الخدمات القانونية، التعليم والمنصات التدريبية، الخدمات المهنية، الخدمات المالية،
+              العقارات، الخدمات الصناعية، تأجير السيارات، والمتاجر المتخصصة. هذا التنوع يجعلنا أكثر قدرة على قراءة
+              احتياج النشاط وتصميم ما يناسبه فعليًا.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Value Proposition</span>
+          <span>Page 4</span>
+        </div>
+      </section>
+
+      <section class="page">
+        <div class="page-inner">
+          <span class="section-kicker">نماذج من أعمالنا</span>
+          <h2>أعمال متنوعة تعكس قدرتنا على بناء تجارب رقمية تناسب أكثر من نوع من الأعمال.</h2>
+
+          <div class="projects-grid">
+            <div class="card project-card">
+              <span class="project-tag">منصة تعليمية</span>
+              <h3>Crazy Doctor</h3>
+              <p>بناء تجربة تعليمية مرتبة لعرض البرامج والدروس والوحدات بطريقة تساعد على الوصول السريع للمحتوى وتدعم قرار الاشتراك.</p>
+            </div>
+            <div class="card project-card">
+              <span class="project-tag">منصة خدمية</span>
+              <h3>Waslny</h3>
+              <p>تنظيم تجربة الطلب والحجز لتكون سريعة على الهاتف مع واجهة خفيفة ومسار واضح يقود لاستخدام متكرر.</p>
+            </div>
+            <div class="card project-card">
+              <span class="project-tag">متجر إلكتروني</span>
+              <h3>Koko &amp; Sons Online</h3>
+              <p>تصميم متجر WooCommerce منظم يعرض الفئات والمنتجات بطريقة تدعم الثقة وتحفّز قرار الشراء.</p>
+            </div>
+            <div class="card project-card">
+              <span class="project-tag">خدمات قانونية</span>
+              <h3>Sruh Al Wthaq Law Firm</h3>
+              <p>واجهة قانونية رسمية تبرز الثقة ومجالات الخدمة وتمنح الانطباع المؤسسي القوي من أول زيارة.</p>
+            </div>
+            <div class="card project-card">
+              <span class="project-tag">خدمات رقمية</span>
+              <h3>Social Media Care</h3>
+              <p>ترتيب عرض الباقات والخدمات والرسائل البيعية بصورة تجعل القيمة أوضح وتدعم بدء التواصل بسرعة.</p>
+            </div>
+            <div class="card project-card">
+              <span class="project-tag">خدمات صناعية</span>
+              <h3>Proofapoxy</h3>
+              <p>بناء واجهة مهنية لعرض الحلول الصناعية والخدمات والمواد بأسلوب واضح يخاطب العملاء المهنيين بثقة.</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px" class="card">
+            <h3>النتيجة المشتركة في هذه المشاريع</h3>
+            <p>
+              وضوح أعلى، صورة أقوى، وهيكل يساعد على فهم الخدمة بسرعة واتخاذ خطوة التواصل أو الشراء بثقة أكبر.
+              هذا هو القاسم المشترك الذي نسعى إليه في كل مشروع ننفذه.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>Selected Projects</span>
+          <span>Page 5</span>
+        </div>
+      </section>
+
+      <section class="page">
+        <div class="page-inner">
+          <span class="section-kicker">تواصل معنا</span>
+          <h2>إذا كنت تبحث عن شريك يفهم الصورة والنتيجة معًا، فسنكون سعداء ببدء النقاش معك.</h2>
+
+          <div class="contact-grid">
+            <div class="card">
+              <h3>معلومات التواصل</h3>
+              <p><strong>الموقع:</strong> دبي، الإمارات العربية المتحدة</p>
+              <p><strong>البريد الإلكتروني:</strong> blinkagency4u@gmail.com</p>
+              <p><strong>Instagram:</strong> instagram.com/blinkdigital4u</p>
+              <p><strong>الهاتف:</strong> +971 52 258 1055</p>
+            </div>
+
+            <div class="card">
+              <h3>ما الذي يمكن أن نبدأ به؟</h3>
+              <ul class="bullet-list">
+                <li>إعادة بناء حضورك الرقمي بصورة أوضح وأكثر احترافية.</li>
+                <li>تطوير موقع أو منصة أو تجربة مهيأة للموبايل.</li>
+                <li>تنظيم التشغيل وربط الأدوات وتقليل الهدر اليومي.</li>
+                <li>بناء مسار نمو أوضح للتسويق، المبيعات، أو خدمة العملاء.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px" class="card">
+            <h3>BLINK</h3>
+            <p>
+              شركة تقنية وخدمات رقمية تقدّم حلولًا متكاملة تساعد الشركات على النمو بصورة أوضح وتنفيذ أكثر احترافية.
+              نؤمن أن أفضل المشاريع هي تلك التي تبدو جميلة من الخارج، ومنظمة من الداخل، ومقنعة للعميل في كل مرحلة.
+            </p>
+          </div>
+
+          <div style="margin-top: 26px" class="brand-mini">
+            <img src="assets/blink-logo-transparent-ui-cropped.png" alt="BLINK mini logo" />
+            <span>Digital Growth, Built Smart</span>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span>blinkagency4u@gmail.com</span>
+          <span>Page 6</span>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

@@ -6468,6 +6468,7 @@ html[lang="en"] .hero h1 {
     gap: 0;
     flex: 0 0 auto;
     margin-inline-start: 0;
+    order: 1;
   }
 
   .language-switch {
@@ -6492,6 +6493,7 @@ html[lang="en"] .hero h1 {
 
   .navmenu {
     flex: 0 0 auto;
+    order: 2;
   }
 
   .navmenu ul {

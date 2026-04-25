@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLINK Company Profile 2026 - Updated</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 12mm;
+      }
+
+      :root {
+        --ink: #102846;
+        --ink-soft: #5e6e86;
+        --paper: #ffffff;
+        --paper-soft: #f5f8fc;
+        --line: rgba(16, 40, 70, 0.12);
+        --green: #1fb56a;
+        --cyan: #39b8ff;
+        --violet: #6559ff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: #eef3f8;
+        color: var(--ink);
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        position: relative;
+        min-height: 273mm;
+        padding: 14mm;
+        background: var(--paper);
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .page:last-child { page-break-after: auto; }
+
+      .page::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 10px;
+        background: linear-gradient(90deg, var(--cyan), var(--violet), var(--green));
+      }
+
+      .cover {
+        color: #fff;
+        background:
+          linear-gradient(135deg, rgba(7, 17, 34, 0.94), rgba(16, 40, 70, 0.82)),
+          url("assets/WhatsApp Image 2026-04-21 at 9.42.59 AM.jpeg") center/cover no-repeat;
+      }
+
+      .cover::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 15% 18%, rgba(57, 184, 255, 0.24), transparent 22%),
+          radial-gradient(circle at 82% 22%, rgba(101, 89, 255, 0.2), transparent 24%);
+      }
+
+      .inner { position: relative; z-index: 1; }
+
+      .brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 24mm;
+      }
+
+      .brand-row img {
+        width: 220px;
+        max-width: 54%;
+        object-fit: contain;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 15px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.08);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .cover h1 {
+        max-width: 78%;
+        margin: 0 0 10px;
+        font-size: 34px;
+        line-height: 1.42;
+      }
+
+      .cover p.lead {
+        max-width: 80%;
+        margin: 0;
+        color: rgba(255,255,255,0.92);
+        font-size: 16px;
+        line-height: 1.9;
+      }
+
+      .cover-grid,
+      .grid-2,
+      .grid-3,
+      .service-grid,
+      .project-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .cover-grid { grid-template-columns: repeat(3, minmax(0,1fr)); margin-top: 22px; }
+      .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .service-grid { grid-template-columns: repeat(3, minmax(0,1fr)); margin-top: 18px; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0,1fr)); margin-top: 18px; }
+
+      .glass,
+      .card {
+        border-radius: 22px;
+      }
+
+      .glass {
+        padding: 16px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+      }
+
+      .glass strong,
+      .card h3 {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 17px;
+      }
+
+      .glass span {
+        color: rgba(255,255,255,0.84);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24mm;
+      }
+
+      .contact-row span {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.08);
+        font-size: 12px;
+      }
+
+      .kicker {
+        display: inline-block;
+        margin-bottom: 10px;
+        color: var(--green);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 26px;
+        line-height: 1.35;
+      }
+
+      p {
+        margin: 0 0 12px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        padding: 18px;
+        background: linear-gradient(180deg, #fff, #f7fbff);
+        border: 1px solid var(--line);
+        box-shadow: 0 20px 56px rgba(16, 40, 70, 0.08);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: auto auto -38px -38px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(57, 184, 255, 0.12), transparent 68%);
+      }
+
+      .card > * { position: relative; z-index: 1; }
+
+      .list {
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        position: relative;
+        margin-bottom: 10px;
+        padding-left: 18px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--green), var(--cyan));
+      }
+
+      .service-tag,
+      .project-tag {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(16, 40, 70, 0.06);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .section-band {
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #102846, #193d72);
+        color: #fff;
+      }
+
+      .section-band p { color: rgba(255,255,255,0.86); }
+
+      .footer {
+        position: absolute;
+        right: 14mm;
+        left: 14mm;
+        bottom: 8mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+        color: var(--ink-soft);
+        font-size: 11px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page cover">
+      <div class="inner">
+        <div class="brand-row">
+          <img src="assets/blink-logo-transparent-ui-cropped.png" alt="BLINK logo" />
+          <span class="pill">Updated Company Profile 2026</span>
+        </div>
+
+        <h1>We Build Digital Systems That Convert, Automate, and Scale.</h1>
+        <p class="lead">
+          A strategic digital partner for modern businesses, startups, and growing brands in the UAE and beyond.
+          BLINK combines creative direction, technical execution, automation, and growth systems to deliver measurable business value.
+        </p>
+
+        <div class="cover-grid">
+          <div class="glass">
+            <strong>Creative</strong>
+            <span>Brand presence, visual identity, content positioning, and customer-facing clarity.</span>
+          </div>
+          <div class="glass">
+            <strong>Technical</strong>
+            <span>Web platforms, mobile experiences, CRM workflows, automation, and system integrations.</span>
+          </div>
+          <div class="glass">
+            <strong>Results-Driven</strong>
+            <span>Everything is designed to improve trust, streamline operations, and increase conversion.</span>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <span>Dubai, UAE</span>
+          <span>blinkagency4u@gmail.com</span>
+          <span>instagram.com/blinkdigital4u</span>
+          <span>+971 52 258 1055</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="kicker">About Us</span>
+      <h2>BLINK is a modern digital agency focused on building high-impact systems, not just attractive digital assets.</h2>
+
+      <div class="grid-2" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Strategic Digital Partner</h3>
+          <p>
+            We work with companies, startups, and growing brands that want more than a good-looking presence.
+            They want a digital system that supports visibility, operations, customer journeys, and long-term business value.
+          </p>
+        </div>
+        <div class="card">
+          <h3>How We Think</h3>
+          <p>
+            Every project is shaped through strategy, user experience, conversion flow, visual identity, and technical execution.
+            Our role is to transform scattered digital effort into a clearer and more effective system.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Target Market</h3>
+          <p>Modern businesses, startups, and growing brands in the UAE and beyond.</p>
+        </div>
+        <div class="card">
+          <h3>Creative Direction</h3>
+          <p>Visual identity, messaging, and user experience designed to engage and position clearly.</p>
+        </div>
+        <div class="card">
+          <h3>Technical Execution</h3>
+          <p>Reliable implementation, integrations, workflows, and digital systems built to support business growth.</p>
+        </div>
+      </div>
+
+      <div class="section-band">
+        <h3 style="margin-top: 0;">Results-Driven by Design</h3>
+        <p>
+          Our goal is to create systems that improve business clarity, conversion flow, customer experience, and operational efficiency.
+        </p>
+      </div>
+
+      <div class="footer">
+        <span>BLINK Company Profile</span>
+        <span>Page 2</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="kicker">Our Services</span>
+      <h2>Smart digital services built for growth, operations, automation, and stronger customer journeys.</h2>
+
+      <div class="service-grid">
+        <div class="card"><span class="service-tag">Growth</span><h3>Growth Marketing</h3><p>Social media management, paid advertising, and conversion-focused campaign systems.</p></div>
+        <div class="card"><span class="service-tag">Automation</span><h3>Business Automation</h3><p>Lead handling, WhatsApp and Messenger automation, follow-up systems, and workflow efficiency.</p></div>
+        <div class="card"><span class="service-tag">CRM</span><h3>CRM Systems</h3><p>Centralized lead control, pipeline setup, reporting, and sales process visibility.</p></div>
+        <div class="card"><span class="service-tag">Web</span><h3>Web Design & Development</h3><p>Websites, landing pages, service websites, e-commerce stores, and scalable web applications.</p></div>
+        <div class="card"><span class="service-tag">Mobile</span><h3>Mobile App Development</h3><p>Mobile-first digital experiences and application-ready systems designed around daily usage.</p></div>
+        <div class="card"><span class="service-tag">Design</span><h3>Design & Branding</h3><p>Visual identity, brand consistency, and design systems that improve trust and perception.</p></div>
+        <div class="card"><span class="service-tag">Operations</span><h3>Digital Operations</h3><p>Streamlined internal workflows, structured operating systems, and connected digital tools.</p></div>
+        <div class="card"><span class="service-tag">Sales</span><h3>Sales Development</h3><p>Sharper conversion paths, clearer value messaging, and better commercial performance.</p></div>
+        <div class="card"><span class="service-tag">CX</span><h3>Customer Service Management</h3><p>Organized customer communication, faster response systems, and stronger post-contact journeys.</p></div>
+        <div class="card"><span class="service-tag">AI</span><h3>AI Solutions</h3><p>Applied AI systems, assistants, and smart automations that support faster decisions and execution.</p></div>
+        <div class="card"><span class="service-tag">Security</span><h3>Cybersecurity</h3><p>Protection, review, risk reduction, and stronger digital trust across systems and data.</p></div>
+        <div class="card"><span class="service-tag">Analysis</span><h3>Business Analysis</h3><p>Gap analysis, opportunity mapping, and sharper direction for digital growth and operations.</p></div>
+        <div class="card"><span class="service-tag">Reporting</span><h3>Analytics & Reporting</h3><p>Clear attribution, cleaner reporting, and better visibility into performance and investment.</p></div>
+        <div class="card"><span class="service-tag">Finance</span><h3>Finance Consultant</h3><p>Structured finance intake, eligibility-oriented analysis, and a stronger presentation of funding files.</p></div>
+        <div class="card"><span class="service-tag">Legal</span><h3>Legal Consultant</h3><p>Professional intake systems and structured legal presentation for sensitive, high-trust files.</p></div>
+        <div class="card"><span class="service-tag">Trading</span><h3>Algorithmic Trading</h3><p>Automated strategy systems, analytics dashboards, and operational visibility for trading workflows.</p></div>
+      </div>
+
+      <div class="footer">
+        <span>Expanded Services</span>
+        <span>Page 3</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="kicker">Growth Systems</span>
+      <h2>From lead generation to automated follow-up, BLINK designs systems that move businesses forward with greater consistency.</h2>
+
+      <div class="grid-3" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Qualified Lead Growth</h3>
+          <p>Marketing systems built around clear targeting, campaign structure, and stronger lead quality.</p>
+        </div>
+        <div class="card">
+          <h3>Operational Automation</h3>
+          <p>24/7 lead handling, instant follow-ups, and connected communication flows across channels.</p>
+        </div>
+        <div class="card">
+          <h3>Clearer Sales Control</h3>
+          <p>CRM systems that track every lead, every deal, and every next step from one source of truth.</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Automation Flow</h3>
+          <ul class="list">
+            <li>Capture leads from ads, forms, and social channels.</li>
+            <li>Respond instantly through chatbot or automated messaging.</li>
+            <li>Sync records into a CRM or operational dashboard.</li>
+            <li>Continue engagement through structured follow-up.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What This Solves</h3>
+          <ul class="list">
+            <li>Missed leads and delayed responses.</li>
+            <li>Scattered customer data and inconsistent follow-up.</li>
+            <li>Weak attribution and unclear reporting.</li>
+            <li>Growth bottlenecks caused by manual process overload.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-band">
+        <h3 style="margin-top: 0;">One Source of Truth</h3>
+        <p>
+          BLINK focuses on building connected systems where visibility, control, and execution are aligned.
+        </p>
+      </div>
+
+      <div class="footer">
+        <span>Systems & Automation</span>
+        <span>Page 4</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="kicker">Portfolio & Sectors</span>
+      <h2>Selected projects across education, services, commerce, legal services, industrial sectors, and digital operations.</h2>
+
+      <div class="project-grid">
+        <div class="card">
+          <span class="project-tag">Education</span>
+          <h3>Crazy Doctor</h3>
+          <p>A structured learning platform supporting content organization, student usability, and stronger subscription readiness.</p>
+        </div>
+        <div class="card">
+          <span class="project-tag">Service Platform</span>
+          <h3>Waslny</h3>
+          <p>A mobile-first service experience with a fast booking journey and clearer customer flow.</p>
+        </div>
+        <div class="card">
+          <span class="project-tag">E-Commerce</span>
+          <h3>Koko &amp; Sons Online</h3>
+          <p>A conversion-oriented online store designed for trust, product visibility, and purchase readiness.</p>
+        </div>
+        <div class="card">
+          <span class="project-tag">Legal</span>
+          <h3>Sruh Al Wthaq Law Firm</h3>
+          <p>A high-trust professional legal presentation built around credibility and service clarity.</p>
+        </div>
+        <div class="card">
+          <span class="project-tag">Industrial</span>
+          <h3>Proofapoxy</h3>
+          <p>A professional industrial services presentation designed to communicate technical solutions with confidence.</p>
+        </div>
+        <div class="card">
+          <span class="project-tag">Digital Services</span>
+          <h3>Social Media Care</h3>
+          <p>A service-led digital experience built to explain value clearly and support enquiry generation.</p>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top: 18px;">
+        <div class="card"><h3>Industries We Serve</h3><p>eCommerce, Corporate, ERP & Tech, Industrial, Education, Law & Consulting, Startups & Apps.</p></div>
+        <div class="card"><h3>What We Improve</h3><p>Brand image, trust, conversion flow, digital operations, lead handling, and customer clarity.</p></div>
+        <div class="card"><h3>Why It Matters</h3><p>The strongest digital results happen when design, systems, and business logic work together.</p></div>
+      </div>
+
+      <div class="footer">
+        <span>Portfolio Snapshot</span>
+        <span>Page 5</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <span class="kicker">Why Choose BLINK?</span>
+      <h2>Because modern businesses need more than isolated deliverables. They need digital systems that support real growth.</h2>
+
+      <div class="grid-2" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Why Companies Work With Us</h3>
+          <ul class="list">
+            <li>Full-funnel strategy, not only execution.</li>
+            <li>Creative direction and technical delivery under one roof.</li>
+            <li>ROI-minded thinking and measurable business structure.</li>
+            <li>Better attribution, cleaner reporting, stronger visibility.</li>
+            <li>UAE market awareness with scalable digital thinking.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Contact</h3>
+          <p><strong>Email:</strong> blinkagency4u@gmail.com</p>
+          <p><strong>Instagram:</strong> instagram.com/blinkdigital4u</p>
+          <p><strong>Location:</strong> Dubai, UAE</p>
+          <p><strong>Phone:</strong> +971 52 258 1055</p>
+          <p><strong>Website:</strong> <a href="https://blinkdigital.vercel.app/">https://blinkdigital.vercel.app/</a></p>
+        </div>
+      </div>
+
+      <div class="section-band">
+        <h3 style="margin-top: 0;">Ready to Scale?</h3>
+        <p>
+          Whether your next priority is growth, automation, better customer journeys, stronger positioning, or a new digital ecosystem,
+          BLINK is ready to help you structure it clearly and execute it professionally.
+        </p>
+      </div>
+
+      <div class="footer">
+        <span>Updated Profile 2026</span>
+        <span>Page 6</span>
+      </div>
+    </section>
+  </body>
+</html>
