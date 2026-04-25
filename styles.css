@@ -467,7 +467,7 @@ section {
 .home-hero-slider-section h1 {
   max-width: 980px;
   margin: 0 auto 18px;
-  color: #fff6d8;
+  color: #fff;
   font-size: clamp(2.2rem, 3.7vw, 3.85rem);
   line-height: 1.46;
   text-wrap: pretty;
